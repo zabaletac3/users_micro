@@ -22,7 +22,7 @@ src/modules/{nombre}/
 Define las interfaces del modulo. Si tiene listado, extender de `PaginationDto`:
 
 ```typescript
-import { PaginationDto } from '../../common/dto/pagination.dto';
+import { PaginationDto } from '@shared/dto/pagination.dto';
 
 export interface {Nombre}Filter extends PaginationDto {
   companyId: string;
@@ -60,7 +60,7 @@ import { Controller, Get, Post, Body, Query, UsePipes } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Decorators, Pipes } from 'lideris-commoms-microservice';
 
-import { JoiQueryValidationPipe } from '../../../common/pipes/joi-query-validation.pipe';
+import { JoiQueryValidationPipe } from '@shared/pipes/joi-query-validation.pipe';
 
 import { {Nombre}Service } from '../providers/{nombre}.service';
 import { List{Nombre}QueryDto, list{Nombre}QuerySchema, create{Nombre}Schema } from '../joi-validations';
@@ -101,7 +101,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { normalizePagination, PaginatedResult } from '../../../common/dto/pagination.dto';
+import { normalizePagination, PaginatedResult } from '@shared/dto/pagination.dto';
 
 @Injectable()
 export class {Nombre}Service {
@@ -130,12 +130,14 @@ export class {Nombre}Service {
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { /* Schema */, /* Schema */Schema } from '@shared/schemas';
+
 import { {Nombre}Controller } from './controllers/{nombre}.controller';
 import { {Nombre}Service } from './providers/{nombre}.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: /* Schema */.name, schema: /* SchemaObj */ }]),
+    MongooseModule.forFeature([{ name: /* Schema */.name, schema: /* Schema */Schema }]),
   ],
   controllers: [{Nombre}Controller],
   providers: [{Nombre}Service],

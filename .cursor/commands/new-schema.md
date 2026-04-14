@@ -3,11 +3,11 @@
 Crea un schema Mongoose local para este microservicio.
 
 > Los schemas compartidos entre micros van en `lideris-commoms-microservice`.
-> Los schemas especificos de este micro van en `src/schemas/`.
+> Los schemas especificos de este micro van en `src/shared/schemas/` (import barrel: `@shared/schemas`).
 
 ## Pasos
 
-### 1. Crear `src/schemas/{prefijo}-{nombre}.schema.ts`
+### 1. Crear `src/shared/schemas/{prefijo}-{nombre}.schema.ts`
 
 Usar el prefijo del micro (ej: `rcm_` para micro-rcm) como `collection` name.
 
@@ -41,7 +41,7 @@ export const {Nombre}Schema = SchemaFactory.createForClass({Nombre});
 {Nombre}Schema.index({ companyId: 1, createdAt: -1 });
 ```
 
-### 2. Registrar en `src/schemas/index.ts`
+### 2. Registrar en `src/shared/schemas/index.ts`
 
 Agregar export al barrel file:
 
@@ -67,4 +67,4 @@ MongooseModule.forFeature([{ name: {Nombre}.name, schema: {Nombre}Schema }])
 - `versionKey: false` — no necesitamos `__v`
 - Indices en campos frecuentes de busqueda
 - Tipos anidados como subdocumentos sin `_id` propio: usar `@Prop({ type: Object })`
-- Enums y tipos de soporte en `src/schemas/{prefijo}-types.ts`
+- Enums y tipos de soporte compartidos del micro: `src/types/` o equivalente acordado por el equipo (no mezclar con schemas)

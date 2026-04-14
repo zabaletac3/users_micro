@@ -77,6 +77,11 @@ export default [
           ],
           pathGroups: [
             {
+              pattern: '@shared/**',
+              group: 'internal',
+              position: 'before',
+            },
+            {
               pattern: '~/**',
               group: 'external',
               position: 'after',

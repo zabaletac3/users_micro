@@ -10,7 +10,7 @@ Lee los siguientes archivos en orden para entener el estado actual del microserv
 ## Despues de leerlos, confirma:
 
 - Que modulos existen en `src/modules/`
-- Que schemas Mongoose existen (locales en `src/schemas/` o desde `lideris-commoms-microservice`)
+- Que schemas Mongoose existen (locales en `src/shared/schemas/` o desde `lideris-commoms-microservice`)
 - Que variables de entorno estan configuradas
 - Que integraciones externas hay (queues, APIs, gRPC, Kafka)
 

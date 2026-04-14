@@ -1,7 +1,7 @@
 {
-  "name": "micro-template",
+  "name": "micro-users",
   "version": "0.0.1",
-  "description": "NestJS Microservice Template with REST + gRPC + Kafka",
+  "description": "Microservicio de usuarios Lideris (REST + gRPC + Kafka)",
   "author": "",
   "private": true,
   "type": "commonjs",
@@ -89,6 +89,9 @@
     "typescript-eslint": "^8.20.0"
   },
   "jest": {
+    "moduleNameMapper": {
+      "^@shared/(.*)$": "<rootDir>/shared/$1"
+    },
     "moduleFileExtensions": [
       "js",
       "json",
