@@ -1,0 +1,81 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: micro-template-mongo
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_DB_NAME:-micro_template}
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - micro-template-network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: micro-template-redis
+    volumes:
+      - redis_data:/data
+    networks:
+      - micro-template-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  kafka:
+    image: apache/kafka:3.7.0
+    container_name: micro-template-kafka
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    networks:
+      - micro-template-network
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: micro-template-app
+    ports:
+      - "${PORT:-5500}:5500"
+      - "${PORT_GRPC:-50052}:50052"
+    environment:
+      NODE_ENV: production
+      PORT: 5500
+      PORT_GRPC: 50052
+      MONGO_STRING_CONNECTION: mongodb://mongo:27017
+      MONGO_DB_NAME: ${MONGO_DB_NAME:-micro_template}
+      REDIS_SERVER_URI: redis://redis:6379
+      REDIS_DB: 1
+      JWT_SECRET: ${JWT_SECRET}
+      KAFKA_BROKERS: kafka:9092
+      KAFKA_CLIENT_ID: micro-template
+      KAFKA_GROUP_ID: micro-template-group
+      GRPC_URL_USER: localhost:50052
+    depends_on:
+      - mongo
+      - redis
+      - kafka
+    networks:
+      - micro-template-network
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+    driver: local
+  redis_data:
+    driver: local
+  kafka_data:
+    driver: local
+
+networks:
+  micro-template-network:
+    driver: bridge
