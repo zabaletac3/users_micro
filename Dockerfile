@@ -13,7 +13,7 @@ RUN npm install -g pnpm@10.10.0
 WORKDIR /build-app
 COPY --from=deps /build-app/node_modules ./node_modules
 COPY . .
-RUN pnpm build && pnpm prune --prod --ignore-scripts
+RUN pnpm build
 
 FROM node:22-alpine AS production
 
