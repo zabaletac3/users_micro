@@ -1,42 +1,31 @@
-FROM node:22-alpine AS deps
+FROM node:20-alpine AS builder
 
-RUN apk add --no-cache python3 make g++ libc6-compat && rm -rf /var/cache/apk/*
-RUN npm install -g pnpm@10.10.0
+WORKDIR /app
 
-WORKDIR /build-app
-COPY package.json pnpm-lock.yaml .npmrc ./
-RUN pnpm install --frozen-lockfile && rm -f .npmrc
+COPY .npmrc* ./
+COPY package.json pnpm-lock.yaml ./
 
-FROM node:22-alpine AS builder
+RUN corepack enable && corepack prepare pnpm@10.10.0 --activate
+RUN pnpm install --frozen-lockfile
 
-RUN npm install -g pnpm@10.10.0
-WORKDIR /build-app
-COPY --from=deps /build-app/node_modules ./node_modules
 COPY . .
-RUN pnpm build
+RUN pnpm run build
 
-FROM node:22-alpine AS production
+RUN pnpm prune --prod --ignore-scripts
 
-RUN apk add --no-cache libc6-compat && rm -rf /var/cache/apk/*
-RUN addgroup -g 1001 -S nodejs && adduser -S nestjs -u 1001
-RUN npm install -g pnpm@10.10.0
+FROM node:20-alpine AS runner
 
-WORKDIR /prod-app
-COPY --from=builder --chown=nestjs:nodejs /build-app/dist ./dist
-COPY --from=builder --chown=nestjs:nodejs /build-app/node_modules ./node_modules
-COPY --from=builder --chown=nestjs:nodejs /build-app/package.json ./package.json
-COPY --from=builder --chown=nestjs:nodejs /build-app/pnpm-lock.yaml ./pnpm-lock.yaml
-RUN npm cache clean --force && rm -rf /tmp/* /var/cache/apk/*
+WORKDIR /app
 
-USER nestjs
+COPY --from=builder --chown=node:node /app/dist ./dist
+COPY --from=builder --chown=node:node /app/node_modules ./node_modules
+COPY --from=builder --chown=node:node /app/package.json ./
+COPY --from=builder --chown=node:node /app/.env* ./
 
-EXPOSE 5500 50052
+RUN mkdir -p /app/logs /var/log/elk-logs && chown -R node:node /app/logs /var/log/elk-logs
 
-ENV NODE_ENV=production
-ENV PORT=5500
-ENV PORT_GRPC=50052
+USER node
 
-HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
-    CMD node -e "require('http').get('http://localhost:5500/api/healthcheck', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })" || exit 1
+EXPOSE 3000
 
-CMD ["pnpm", "start:prod"]
+CMD ["node", "dist/main.js"]

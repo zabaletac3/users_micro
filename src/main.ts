@@ -28,7 +28,8 @@ async function bootstrap(): Promise<void> {
   await bootstrapConfigMicroservice(app, {
     apiPrefix: 'user',
     microserviceName: constants.APP_NAME,
-    swaggerPath: 'docs',
+    swaggerPath: 'user/docs',
+    enableSwagger: true,
     grpcPackageName: 'user',
     corsOptions: {
       origin:
@@ -59,7 +60,7 @@ async function bootstrap(): Promise<void> {
 
   logger.log(`HTTP + Socket.IO on port ${constants.PORT}`);
   logger.log(`gRPC server on port ${constants.PORT_GRPC}`);
-  logger.log(`Swagger docs at http://localhost:${constants.PORT}/docs`);
+  logger.log(`Swagger docs at http://localhost:${constants.PORT}/user/docs`);
 }
 bootstrap().catch((err) => {
   const logger = new Logger('Bootstrap');

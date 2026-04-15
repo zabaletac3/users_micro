@@ -2,7 +2,7 @@ export default {
   PORT: Number(process.env.PORT) || 5500,
   PORT_GRPC: Number(process.env.PORT_GRPC) || 50052,
   NODE_ENV: process.env.NODE_ENV || 'development',
-  APP_NAME: process.env.APP_NAME || 'micro-template',
+  APP_NAME: process.env.APP_NAME || 'micro-users',
   CORS_ORIGINS: process.env.CORS_ORIGINS || '',
   MONGO_STRING_CONNECTION: process.env.MONGO_STRING_CONNECTION!,
   MONGO_DB_NAME: process.env.MONGO_DB_NAME!,
@@ -10,7 +10,7 @@ export default {
   REDIS_SERVER_URI: process.env.REDIS_SERVER_URI || 'redis://localhost:6379',
   REDIS_DB: Number(process.env.REDIS_DB) || 1,
   KAFKA_BROKERS: process.env.KAFKA_BROKERS || 'localhost:9092',
-  KAFKA_CLIENT_ID: process.env.KAFKA_CLIENT_ID || 'micro-template',
-  KAFKA_GROUP_ID: process.env.KAFKA_GROUP_ID || 'micro-template-group',
+  KAFKA_CLIENT_ID: process.env.KAFKA_CLIENT_ID || 'micro-users',
+  KAFKA_GROUP_ID: process.env.KAFKA_GROUP_ID || 'micro-users-group',
   GRPC_URL_USER: process.env.GRPC_URL_USER || 'localhost:50052',
 };
