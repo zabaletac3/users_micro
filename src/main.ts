@@ -25,6 +25,11 @@ async function bootstrap(): Promise<void> {
     new FastifyAdapter({ logger: pinoConfig, bodyLimit: 10 * 1024 * 1024 }),
   );
 
+  const kafkaBrokers = constants.KAFKA_BROKERS.split(',')
+    .map((b) => b.trim())
+    .filter(Boolean);
+  const hasKafka = kafkaBrokers.length > 0 && kafkaBrokers[0] !== 'localhost:9092';
+
   await bootstrapConfigMicroservice(app, {
     apiPrefix: 'user',
     microserviceName: constants.APP_NAME,
@@ -40,11 +45,13 @@ async function bootstrap(): Promise<void> {
           : true,
       credentials: true,
     },
-    kafkaConfig: {
-      clientId: constants.KAFKA_CLIENT_ID,
-      brokers: constants.KAFKA_BROKERS.split(','),
-      groupId: constants.KAFKA_GROUP_ID,
-    },
+    ...(hasKafka && {
+      kafkaConfig: {
+        clientId: constants.KAFKA_CLIENT_ID,
+        brokers: kafkaBrokers,
+        groupId: constants.KAFKA_GROUP_ID,
+      },
+    }),
   });
 
   if (constants.REDIS_SERVER_URI) {
