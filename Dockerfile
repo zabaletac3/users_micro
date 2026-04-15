@@ -4,8 +4,8 @@ RUN apk add --no-cache python3 make g++ libc6-compat && rm -rf /var/cache/apk/*
 RUN npm install -g pnpm@10.10.0
 
 WORKDIR /build-app
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+COPY package.json pnpm-lock.yaml .npmrc ./
+RUN pnpm install --frozen-lockfile && rm -f .npmrc
 
 FROM node:22-alpine AS builder
 
@@ -13,7 +13,7 @@ RUN npm install -g pnpm@10.10.0
 WORKDIR /build-app
 COPY --from=deps /build-app/node_modules ./node_modules
 COPY . .
-RUN pnpm build
+RUN pnpm build && pnpm prune --prod
 
 FROM node:22-alpine AS production
 
@@ -23,12 +23,10 @@ RUN npm install -g pnpm@10.10.0
 
 WORKDIR /prod-app
 COPY --from=builder --chown=nestjs:nodejs /build-app/dist ./dist
+COPY --from=builder --chown=nestjs:nodejs /build-app/node_modules ./node_modules
 COPY --from=builder --chown=nestjs:nodejs /build-app/package.json ./package.json
 COPY --from=builder --chown=nestjs:nodejs /build-app/pnpm-lock.yaml ./pnpm-lock.yaml
-
-RUN pnpm install --prod --frozen-lockfile --ignore-scripts && \
-    npm cache clean --force && \
-    rm -rf /tmp/* /var/cache/apk/*
+RUN npm cache clean --force && rm -rf /tmp/* /var/cache/apk/*
 
 USER nestjs
 
