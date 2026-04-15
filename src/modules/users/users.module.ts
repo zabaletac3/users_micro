@@ -1,9 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ClientsModule } from '@nestjs/microservices';
-import { Schemas, registerKafkaConfig } from 'lideris-commoms-microservice';
-
-import constants from '../../constants';
+import { Schemas } from 'lideris-commoms-microservice';
 
 import { UsersController } from './controllers/users.controller';
 import { UsersGrpcController } from './controllers/users.grpc.controller';
@@ -13,10 +10,7 @@ import { UsersKafkaService } from './providers/users.kafka.service';
 import { UsersGateway } from './gateways/users.gateway';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: Schemas.User.name, schema: Schemas.UserSchema }]),
-    ClientsModule.register([registerKafkaConfig('KAFKA_CLIENT', constants.KAFKA_GROUP_ID)]),
-  ],
+  imports: [MongooseModule.forFeature([{ name: Schemas.User.name, schema: Schemas.UserSchema }])],
   controllers: [UsersController, UsersGrpcController, UsersEventController],
   providers: [UsersService, UsersKafkaService, UsersGateway],
   exports: [UsersService],
