@@ -84,8 +84,8 @@ importers:
         specifier: ^2.2.4
         version: 2.2.4
       lideris-commoms-microservice:
-        specifier: ^1.1.2
-        version: 1.1.2(@fastify/compress@8.3.1)(@fastify/cors@11.2.0)(@fastify/formbody@8.0.2)(@fastify/helmet@13.0.2)(@fastify/rate-limit@10.3.0)(@fastify/swagger-ui@5.2.5)(@fastify/swagger@9.7.0)(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(@nestjs/microservices@11.1.6)(@nestjs/mongoose@11.0.3(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(mongoose@8.18.0)(rxjs@7.8.2))(@nestjs/platform-fastify@11.1.6(@fastify/static@8.2.0)(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6))(@nestjs/swagger@11.2.0(@fastify/static@8.2.0)(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(reflect-metadata@0.2.2))(@nestjs/websockets@11.1.18)(fastify@5.8.4)(mongoose@8.18.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+        specifier: ^1.2.12
+        version: 1.2.12(@fastify/compress@8.3.1)(@fastify/cors@11.2.0)(@fastify/formbody@8.0.2)(@fastify/helmet@13.0.2)(@fastify/rate-limit@10.3.0)(@fastify/swagger-ui@5.2.5)(@fastify/swagger@9.7.0)(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(@nestjs/microservices@11.1.6)(@nestjs/mongoose@11.0.3(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(mongoose@8.18.0)(rxjs@7.8.2))(@nestjs/platform-fastify@11.1.6(@fastify/static@8.2.0)(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6))(@nestjs/swagger@11.2.0(@fastify/static@8.2.0)(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(reflect-metadata@0.2.2))(@nestjs/websockets@11.1.18)(fastify@5.8.4)(mongoose@8.18.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       mongoose:
         specifier: ^8.18.0
         version: 8.18.0
@@ -1202,38 +1202,41 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@redis/bloom@5.11.0':
-    resolution: {integrity: sha512-KYiVilAhAFN3057afUb/tfYJpsEyTkQB+tQcn5gVVA7DgcNOAj8lLxe4j8ov8BF6I9C1Fe/kwlbuAICcTMX8Lw==}
-    engines: {node: '>= 18'}
+  '@redis/bloom@5.12.1':
+    resolution: {integrity: sha512-PUUfv+ms7jgPSBVoo/DN4AkPHj4D5TZSd6SbJX7egzBplkYUcKmHRE8RKia7UtZ8bSQbLguLvxVO+asKtQfZWA==}
+    engines: {node: '>= 18.19.0'}
     peerDependencies:
-      '@redis/client': ^5.11.0
+      '@redis/client': ^5.12.1
 
-  '@redis/client@5.11.0':
-    resolution: {integrity: sha512-GHoprlNQD51Xq2Ztd94HHV94MdFZQ3CVrpA04Fz8MVoHM0B7SlbmPEVIjwTbcv58z8QyjnrOuikS0rWF03k5dQ==}
-    engines: {node: '>= 18'}
+  '@redis/client@5.12.1':
+    resolution: {integrity: sha512-7aPGWeqA3uFm43o19umzdl16CEjK/JQGtSXVPevplTaOU3VJA/rseBC1QvYUz9lLDIMBimc4SW/zrW4S89BaCA==}
+    engines: {node: '>= 18.19.0'}
     peerDependencies:
       '@node-rs/xxhash': ^1.1.0
+      '@opentelemetry/api': '>=1 <2'
     peerDependenciesMeta:
       '@node-rs/xxhash':
         optional: true
+      '@opentelemetry/api':
+        optional: true
 
-  '@redis/json@5.11.0':
-    resolution: {integrity: sha512-1iAy9kAtcD0quB21RbPTbUqqy+T2Uu2JxucwE+B4A+VaDbIRvpZR6DMqV8Iqaws2YxJYB3GC5JVNzPYio2ErUg==}
-    engines: {node: '>= 18'}
+  '@redis/json@5.12.1':
+    resolution: {integrity: sha512-eOze75esLve4vfqDel7aMX08CNaiLLQS2fV8mpRN9NxPe1rVR4vQyYiW/OgtGUysF6QOr9ANhfxABKNOJfXdKg==}
+    engines: {node: '>= 18.19.0'}
     peerDependencies:
-      '@redis/client': ^5.11.0
+      '@redis/client': ^5.12.1
 
-  '@redis/search@5.11.0':
-    resolution: {integrity: sha512-g1l7f3Rnyk/xI99oGHIgWHSKFl45Re5YTIcO8j/JE8olz389yUFyz2+A6nqVy/Zi031VgPDWscbbgOk8hlhZ3g==}
-    engines: {node: '>= 18'}
+  '@redis/search@5.12.1':
+    resolution: {integrity: sha512-ItlxbxC9cKI6IU1TLWoczwJCRb6TdmkEpWv05UrPawqaAnWGRu3rcIqsc5vN483T2fSociuyV1UkWIL5I4//2w==}
+    engines: {node: '>= 18.19.0'}
     peerDependencies:
-      '@redis/client': ^5.11.0
+      '@redis/client': ^5.12.1
 
-  '@redis/time-series@5.11.0':
-    resolution: {integrity: sha512-TWFeOcU4xkj0DkndnOyhtxvX1KWD+78UHT3XX3x3XRBUGWeQrKo3jqzDsZwxbggUgf9yLJr/akFHXru66X5UQA==}
-    engines: {node: '>= 18'}
+  '@redis/time-series@5.12.1':
+    resolution: {integrity: sha512-c6JL6E3EcZJuNqKFz+KM+l9l5mpcQiKvTwgA3blt5glWJ8hjDk0yeHN3beE/MpqYIQ8UEX44ItQzgkE/gCBELQ==}
+    engines: {node: '>= 18.19.0'}
     peerDependencies:
-      '@redis/client': ^5.11.0
+      '@redis/client': ^5.12.1
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -3540,8 +3543,8 @@ packages:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
 
-  lideris-commoms-microservice@1.1.2:
-    resolution: {integrity: sha512-XezUs44s7TjAPQdlId1qeRz2PLbPb8tYDk2PtD1jhjcpl6ZKkDrpJXsQJzChN1xUHPXbINPZkEC9FclAZAiJHg==}
+  lideris-commoms-microservice@1.2.12:
+    resolution: {integrity: sha512-Q0DM1JtlNtlwDw0rj9JXxVuM4L36M4z4bnS6a23jdEWMqzK/K6GOcYZ4xx5cBsPMiQ93JDIj1KLYj0uYaV4HgQ==}
     engines: {node: '>=20'}
     peerDependencies:
       '@fastify/compress': ^8.0.0
@@ -4296,9 +4299,9 @@ packages:
     resolution: {integrity: sha512-DJnGAeenTdpMEH6uAJRK/uiyEIH9WVsUmoLwzudwGJUwZPp80PDBWPHXSAGNPwNvIXAbe7MSUB1zQFugFml66A==}
     engines: {node: '>=4'}
 
-  redis@5.11.0:
-    resolution: {integrity: sha512-YwXjATVDT+AuxcyfOwZn046aml9jMlQPvU1VXIlLDVAExe0u93aTfPYSeRgG4p9Q/Jlkj+LXJ1XEoFV+j2JKcQ==}
-    engines: {node: '>= 18'}
+  redis@5.12.1:
+    resolution: {integrity: sha512-LDsoVvb/CpoV9EN3FXvgvSHNJWuCIzl9MiO3ppOevuGLpSGJhwfQjpEwfFJcQvNSddHADDdZaWx0HnmMxRXG7g==}
+    engines: {node: '>= 18.19.0'}
 
   reflect-metadata@0.2.2:
     resolution: {integrity: sha512-urBwgfrvVP/eAyXx4hluJivBKzuEbSQs9rKWCrCkbSxNv8mxPcUZKeuoF3Uy4mJl3Lwprp6yy5/39VWigZ4K6Q==}
@@ -6404,25 +6407,25 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@redis/bloom@5.11.0(@redis/client@5.11.0)':
+  '@redis/bloom@5.12.1(@redis/client@5.12.1)':
     dependencies:
-      '@redis/client': 5.11.0
+      '@redis/client': 5.12.1
 
-  '@redis/client@5.11.0':
+  '@redis/client@5.12.1':
     dependencies:
       cluster-key-slot: 1.1.2
 
-  '@redis/json@5.11.0(@redis/client@5.11.0)':
+  '@redis/json@5.12.1(@redis/client@5.12.1)':
     dependencies:
-      '@redis/client': 5.11.0
+      '@redis/client': 5.12.1
 
-  '@redis/search@5.11.0(@redis/client@5.11.0)':
+  '@redis/search@5.12.1(@redis/client@5.12.1)':
     dependencies:
-      '@redis/client': 5.11.0
+      '@redis/client': 5.12.1
 
-  '@redis/time-series@5.11.0(@redis/client@5.11.0)':
+  '@redis/time-series@5.12.1(@redis/client@5.12.1)':
     dependencies:
-      '@redis/client': 5.11.0
+      '@redis/client': 5.12.1
 
   '@rtsao/scc@1.1.0': {}
 
@@ -9267,7 +9270,7 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
-  lideris-commoms-microservice@1.1.2(@fastify/compress@8.3.1)(@fastify/cors@11.2.0)(@fastify/formbody@8.0.2)(@fastify/helmet@13.0.2)(@fastify/rate-limit@10.3.0)(@fastify/swagger-ui@5.2.5)(@fastify/swagger@9.7.0)(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(@nestjs/microservices@11.1.6)(@nestjs/mongoose@11.0.3(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(mongoose@8.18.0)(rxjs@7.8.2))(@nestjs/platform-fastify@11.1.6(@fastify/static@8.2.0)(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6))(@nestjs/swagger@11.2.0(@fastify/static@8.2.0)(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(reflect-metadata@0.2.2))(@nestjs/websockets@11.1.18)(fastify@5.8.4)(mongoose@8.18.0)(reflect-metadata@0.2.2)(rxjs@7.8.2):
+  lideris-commoms-microservice@1.2.12(@fastify/compress@8.3.1)(@fastify/cors@11.2.0)(@fastify/formbody@8.0.2)(@fastify/helmet@13.0.2)(@fastify/rate-limit@10.3.0)(@fastify/swagger-ui@5.2.5)(@fastify/swagger@9.7.0)(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(@nestjs/microservices@11.1.6)(@nestjs/mongoose@11.0.3(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(mongoose@8.18.0)(rxjs@7.8.2))(@nestjs/platform-fastify@11.1.6(@fastify/static@8.2.0)(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6))(@nestjs/swagger@11.2.0(@fastify/static@8.2.0)(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(reflect-metadata@0.2.2))(@nestjs/websockets@11.1.18)(fastify@5.8.4)(mongoose@8.18.0)(reflect-metadata@0.2.2)(rxjs@7.8.2):
     dependencies:
       '@fastify/cors': 11.2.0
       '@nestjs/common': 11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -9282,7 +9285,7 @@ snapshots:
       jsonwebtoken: 9.0.3
       luxon: 3.7.2
       mongoose: 8.18.0
-      redis: 5.11.0
+      redis: 5.12.1
       reflect-metadata: 0.2.2
       rxjs: 7.8.2
       uuid: 11.1.0
@@ -9298,6 +9301,7 @@ snapshots:
       '@nestjs/websockets': 11.1.18(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(@nestjs/platform-socket.io@11.1.18)(reflect-metadata@0.2.2)(rxjs@7.8.2)
     transitivePeerDependencies:
       - '@node-rs/xxhash'
+      - '@opentelemetry/api'
 
   light-my-request@6.6.0:
     dependencies:
@@ -9983,15 +9987,16 @@ snapshots:
     dependencies:
       redis-errors: 1.2.0
 
-  redis@5.11.0:
+  redis@5.12.1:
     dependencies:
-      '@redis/bloom': 5.11.0(@redis/client@5.11.0)
-      '@redis/client': 5.11.0
-      '@redis/json': 5.11.0(@redis/client@5.11.0)
-      '@redis/search': 5.11.0(@redis/client@5.11.0)
-      '@redis/time-series': 5.11.0(@redis/client@5.11.0)
+      '@redis/bloom': 5.12.1(@redis/client@5.12.1)
+      '@redis/client': 5.12.1
+      '@redis/json': 5.12.1(@redis/client@5.12.1)
+      '@redis/search': 5.12.1(@redis/client@5.12.1)
+      '@redis/time-series': 5.12.1(@redis/client@5.12.1)
     transitivePeerDependencies:
       - '@node-rs/xxhash'
+      - '@opentelemetry/api'
 
   reflect-metadata@0.2.2: {}
 
