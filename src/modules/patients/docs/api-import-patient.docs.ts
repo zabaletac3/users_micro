@@ -1,7 +1,7 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
-import { ImportPatientDto } from '@shared/dtos/patients/import-patient.dto';
-import { FindPatientByIdResponseDto } from '@shared/dtos/patients/find-patient-by-id-response.dto';
+import { FindPatientByIdResponseDto } from '@shared/dto/find-patient-by-id-response.dto';
+import { ImportPatientDto } from '@shared/dto/import-patient.dto';
 
 export function ApiImportPatient() {
   return applyDecorators(

@@ -10,13 +10,13 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import {
-  CreateJudicialAuthorityNoticeDto,
-  UpdateJudicialAuthorityNoticeDto,
-} from '@shared/dtos/patients/judicial-authority-notice.dto';
-import {
   JudicialAuthorityNoticeListResponseDto,
   JudicialAuthorityNoticeResponseDto,
-} from '@shared/dtos/patients/judicial-authority-notice-response.dto';
+} from '@shared/dto/judicial-authority-notice-response.dto';
+import {
+  CreateJudicialAuthorityNoticeDto,
+  UpdateJudicialAuthorityNoticeDto,
+} from '@shared/dto/judicial-authority-notice.dto';
 
 export function ApiListJudicialAuthorityNotices() {
   return applyDecorators(

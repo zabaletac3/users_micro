@@ -1,7 +1,7 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
-import { ListPatientsResponseDto } from '@shared/dtos/patients/list-patient-response.dto';
-import { AgreementTypeEnum } from '@shared/enum/agreement-type.enum';
+import { ListPatientsResponseDto } from '@shared/dto/list-patient-response.dto';
+import { Enums } from 'lideris-commoms-microservice';
 
 export function ApiListPatients() {
   return applyDecorators(
@@ -15,7 +15,7 @@ export function ApiListPatients() {
     ApiQuery({ name: 'name', required: false, type: String }),
     ApiQuery({ name: 'documentNumber', required: false, type: String }),
     ApiQuery({ name: 'documentType', required: false, type: String }),
-    ApiQuery({ name: 'agreementType', required: false, enum: AgreementTypeEnum }),
+    ApiQuery({ name: 'agreementType', required: false, enum: Enums.AgreementTypeEnum }),
     ApiQuery({ name: 'payerId', required: false, type: String }),
     ApiQuery({ name: 'startDate', required: false, type: String }),
     ApiQuery({ name: 'endDate', required: false, type: String }),

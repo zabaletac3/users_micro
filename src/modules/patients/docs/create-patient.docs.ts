@@ -1,7 +1,7 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { CreatePatientDto } from '@shared/dtos/patients/create-patient.dto';
-import { User } from '@shared/schemas/user.schema';
+import { CreatePatientDto } from '@shared/dto/create-patient.dto';
+import { Schemas } from 'lideris-commoms-microservice';
 
 export function ApiCreatePatient() {
   return applyDecorators(
@@ -37,7 +37,7 @@ Supports three registration flows controlled by **documentType**:
     ApiResponse({
       status: 201,
       description: 'Patient created successfully.',
-      type: User,
+      type: Schemas.User,
     }),
     ApiResponse({
       status: 404,

@@ -1,7 +1,7 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
-import { MergePatientDto } from '@shared/dtos/patients/merge-patient.dto';
-import { FindPatientByIdResponseDto } from '@shared/dtos/patients/find-patient-by-id-response.dto';
+import { FindPatientByIdResponseDto } from '@shared/dto/find-patient-by-id-response.dto';
+import { MergePatientDto } from '@shared/dto/merge-patient.dto';
 
 export function ApiMergePatient() {
   return applyDecorators(

@@ -4,8 +4,7 @@ import { FilterQuery, Model, Types } from 'mongoose';
 import { Schemas, Utils } from 'lideris-commoms-microservice';
 import { FindAllPatientsDto } from '@shared/dto/find-all-patient.dto';
 import { ListPatientsResponseDto, PatientMetricsDto } from '@shared/dto/list-patient-response.dto';
-import { PatientDocumentType } from 'lideris-commoms-microservice/dist/enums';
-import { UserDocument } from 'lideris-commoms-microservice/dist/schemas';
+import { Enums } from 'lideris-commoms-microservice';
 
 @Injectable()
 export class ListPatientsService {
@@ -51,7 +50,7 @@ export class ListPatientsService {
 
     const companyObjectId = new Types.ObjectId(companyId);
 
-    const matchUser: FilterQuery<UserDocument> = {
+    const matchUser: FilterQuery<Schemas.UserDocument> = {
       companies: companyObjectId,
     };
 
@@ -191,14 +190,17 @@ export class ListPatientsService {
   }
 
   private async calculateMetrics(companyObjectId: Types.ObjectId): Promise<PatientMetricsDto> {
-    const companyFilter: FilterQuery<UserDocument> = { companies: companyObjectId };
+    const companyFilter: FilterQuery<Schemas.UserDocument> = { companies: companyObjectId };
 
     const [totalPatients, totalNN] = await Promise.all([
       this.userModel.countDocuments({
         ...companyFilter,
-        documentType: { $nin: [PatientDocumentType.NN] },
+        documentType: { $nin: [Enums.PatientDocumentType.NN] },
       }),
-      this.userModel.countDocuments({ ...companyFilter, documentType: PatientDocumentType.NN }),
+      this.userModel.countDocuments({
+        ...companyFilter,
+        documentType: Enums.PatientDocumentType.NN,
+      }),
     ]);
 
     return {

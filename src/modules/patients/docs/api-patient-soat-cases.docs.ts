@@ -9,13 +9,13 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 import {
-  CreatePatientSoatCaseDto,
-  UpdatePatientSoatCaseDto,
-} from '@shared/dtos/patients/patient-soat-case.dto';
-import {
   PatientSoatCaseListResponseDto,
   PatientSoatCaseResponseDto,
-} from '@shared/dtos/patients/patient-soat-case-response.dto';
+} from '@shared/dto/patient-soat-case-response.dto';
+import {
+  CreatePatientSoatCaseDto,
+  UpdatePatientSoatCaseDto,
+} from '@shared/dto/patient-soat-case.dto';
 
 export function ApiListPatientSoatCases() {
   return applyDecorators(

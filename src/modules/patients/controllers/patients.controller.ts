@@ -43,14 +43,8 @@ import {
 } from '@shared/dto/patient-soat-case.dto';
 import { SearchPatientQueryDto } from '@shared/dto/search-patient.dto';
 import { UpdatePatientDto } from '@shared/dto/update-patient.dto';
-import { JoiValidationPipe } from 'lideris-commoms-microservice/dist/pipes';
-import {
-  SOATData,
-  SoatVehicleOwner,
-  SoatVictimTransportCoverage,
-  JudicialReferringIps,
-} from 'lideris-commoms-microservice/dist/schemas';
-import { Decorators } from 'lideris-commoms-microservice';
+import { Decorators, Pipes } from 'lideris-commoms-microservice';
+import { Schemas } from 'lideris-commoms-microservice';
 
 import {
   ApiCreateJudicialAuthorityNotice,
@@ -107,14 +101,14 @@ import { UpdatePatientService } from '../services/update-patient.service';
   PayerPopulatedDto,
   CreatePatientSoatCaseDto,
   UpdatePatientSoatCaseDto,
-  SOATData,
-  SoatVehicleOwner,
-  SoatVictimTransportCoverage,
+  Schemas.SOATData,
+  Schemas.SoatVehicleOwner,
+  Schemas.SoatVictimTransportCoverage,
   PatientSoatCaseResponseDto,
   PatientSoatCaseListResponseDto,
   CreateJudicialAuthorityNoticeDto,
   UpdateJudicialAuthorityNoticeDto,
-  JudicialReferringIps,
+  Schemas.JudicialReferringIps,
   JudicialAuthorityNoticeResponseDto,
   JudicialAuthorityNoticeListResponseDto,
 )
@@ -174,7 +168,7 @@ export class PatientsController {
   @Version('1')
   @ApiCreatePatientSoatCase()
   @HttpCode(HttpStatus.CREATED)
-  @UsePipes(new JoiValidationPipe(CreatePatientSoatCaseSchema))
+  @UsePipes(new Pipes.JoiValidationPipe(CreatePatientSoatCaseSchema))
   @Post(':id/soat-cases')
   async createPatientSoatCase(
     @Param('id') id: string,
@@ -186,7 +180,7 @@ export class PatientsController {
 
   @Version('1')
   @ApiUpdatePatientSoatCase()
-  @UsePipes(new JoiValidationPipe(UpdatePatientSoatCaseSchema))
+  @UsePipes(new Pipes.JoiValidationPipe(UpdatePatientSoatCaseSchema))
   @Patch(':id/soat-cases/:soatCaseId')
   async updatePatientSoatCase(
     @Param('id') id: string,
@@ -222,7 +216,7 @@ export class PatientsController {
   @Version('1')
   @ApiCreateJudicialAuthorityNotice()
   @HttpCode(HttpStatus.CREATED)
-  @UsePipes(new JoiValidationPipe(CreateJudicialAuthorityNoticeSchema))
+  @UsePipes(new Pipes.JoiValidationPipe(CreateJudicialAuthorityNoticeSchema))
   @Post(':id/judicial-authority-notices')
   async createJudicialAuthorityNotice(
     @Param('id') id: string,
@@ -234,7 +228,7 @@ export class PatientsController {
 
   @Version('1')
   @ApiUpdateJudicialAuthorityNotice()
-  @UsePipes(new JoiValidationPipe(UpdateJudicialAuthorityNoticeSchema))
+  @UsePipes(new Pipes.JoiValidationPipe(UpdateJudicialAuthorityNoticeSchema))
   @Patch(':id/judicial-authority-notices/:noticeId')
   async updateJudicialAuthorityNotice(
     @Param('id') id: string,
@@ -258,7 +252,7 @@ export class PatientsController {
 
   @Version('1')
   @ApiCreatePatient()
-  @UsePipes(new JoiValidationPipe(CreatePatientSchema))
+  @UsePipes(new Pipes.JoiValidationPipe(CreatePatientSchema))
   @Post()
   async create(
     @Body() dto: CreatePatientDto,
@@ -276,7 +270,7 @@ export class PatientsController {
 
   @Version('1')
   @ApiImportPatient()
-  @UsePipes(new JoiValidationPipe(ImportPatientSchema))
+  @UsePipes(new Pipes.JoiValidationPipe(ImportPatientSchema))
   @Post(':id/import')
   async import(
     @Param('id') id: string,
@@ -294,7 +288,7 @@ export class PatientsController {
 
   @Version('1')
   @ApiMergePatient()
-  @UsePipes(new JoiValidationPipe(MergePatientSchema))
+  @UsePipes(new Pipes.JoiValidationPipe(MergePatientSchema))
   @Post(':id/merge')
   async merge(
     @Param('id') id: string,
@@ -312,7 +306,7 @@ export class PatientsController {
 
   @Version('1')
   @ApiIdentifyPatient()
-  @UsePipes(new JoiValidationPipe(IdentifyPatientSchema))
+  @UsePipes(new Pipes.JoiValidationPipe(IdentifyPatientSchema))
   @Patch(':id/identify')
   async identify(
     @Param('id') id: string,
@@ -330,7 +324,7 @@ export class PatientsController {
 
   @Version('1')
   @ApiUpdatePatient()
-  @UsePipes(new JoiValidationPipe(UpdatePatientSchema))
+  @UsePipes(new Pipes.JoiValidationPipe(UpdatePatientSchema))
   @Patch(':id')
   async update(
     @Param('id') id: string,

@@ -1,7 +1,7 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
-import { PatientDocumentType } from '@shared/enum/authorizations.enum';
-import { SearchPatientResponseItemDto } from '@shared/dtos/patients/search-patient.dto';
+import { SearchPatientResponseItemDto } from '@shared/dto/search-patient.dto';
+import { Enums } from 'lideris-commoms-microservice';
 
 export function ApiSearchPatient() {
   return applyDecorators(
@@ -29,7 +29,7 @@ The \`companies\` array in each result can be compared against the current \`com
     ApiQuery({
       name: 'documentType',
       required: true,
-      enum: PatientDocumentType,
+      enum: Enums.PatientDocumentType,
       description: 'Document type to search by.',
     }),
     ApiQuery({
