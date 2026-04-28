@@ -150,7 +150,10 @@ export class PatientsController {
   @Version('1')
   @ApiListPatientSoatCases()
   @Get(':id/soat-cases')
-  async listPatientSoatCases(@Param('id') id: string, @Query('companyId') companyId: string) {
+  async listPatientSoatCases(
+    @Param('id') id: string,
+    @Decorators.CurrentCompanyId() companyId: string,
+  ) {
     return this.listPatientSoatCasesService.execute(id, companyId);
   }
 
