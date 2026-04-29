@@ -18,8 +18,11 @@ import {
   UpdateJudicialAuthorityNoticeDto,
 } from '@shared/dto/judicial-authority-notice.dto';
 
+import { ApiCompanyIdFromAuthContext } from './api-company-context.docs';
+
 export function ApiListJudicialAuthorityNotices() {
   return applyDecorators(
+    ApiCompanyIdFromAuthContext(),
     ApiTags('patients', 'judicial-authority-notices'),
     ApiOperation({
       summary: 'Listar avisos a la autoridad judicial del paciente',
@@ -27,7 +30,6 @@ export function ApiListJudicialAuthorityNotices() {
         'Devuelve los registros de aviso judicial para el paciente e IPS. Opcionalmente filtra por expediente SOAT (`soatCaseId`).',
     }),
     ApiParam({ name: 'id', description: 'ID del paciente' }),
-    ApiQuery({ name: 'companyId', required: true, type: String, description: 'ID de la IPS.' }),
     ApiQuery({
       name: 'soatCaseId',
       required: false,
@@ -41,11 +43,11 @@ export function ApiListJudicialAuthorityNotices() {
 
 export function ApiGetJudicialAuthorityNoticeById() {
   return applyDecorators(
+    ApiCompanyIdFromAuthContext(),
     ApiTags('patients', 'judicial-authority-notices'),
     ApiOperation({ summary: 'Obtener un aviso judicial por ID' }),
     ApiParam({ name: 'id', description: 'ID del paciente' }),
     ApiParam({ name: 'noticeId', description: 'ID del aviso judicial' }),
-    ApiQuery({ name: 'companyId', required: true, type: String }),
     ApiOkResponse({ type: JudicialAuthorityNoticeResponseDto }),
     ApiResponse({ status: 404, description: 'Paciente o aviso no encontrado.' }),
   );
@@ -53,6 +55,7 @@ export function ApiGetJudicialAuthorityNoticeById() {
 
 export function ApiCreateJudicialAuthorityNotice() {
   return applyDecorators(
+    ApiCompanyIdFromAuthContext(),
     ApiTags('patients', 'judicial-authority-notices'),
     ApiOperation({
       summary: 'Registrar aviso a la autoridad judicial',
@@ -60,7 +63,6 @@ export function ApiCreateJudicialAuthorityNotice() {
         'Crea un nuevo aviso. Todos los campos del cuerpo son opcionales salvo reglas de negocio futuras. `soatCaseId` debe ser un caso SOAT del mismo paciente e IPS si se envía.',
     }),
     ApiParam({ name: 'id', description: 'ID del paciente' }),
-    ApiQuery({ name: 'companyId', required: true, type: String }),
     ApiBody({ type: CreateJudicialAuthorityNoticeDto }),
     ApiCreatedResponse({ type: JudicialAuthorityNoticeResponseDto }),
     ApiResponse({ status: 400, description: 'IDs inválidos o SOAT no coincide con paciente/IPS.' }),
@@ -70,6 +72,7 @@ export function ApiCreateJudicialAuthorityNotice() {
 
 export function ApiUpdateJudicialAuthorityNotice() {
   return applyDecorators(
+    ApiCompanyIdFromAuthContext(),
     ApiTags('patients', 'judicial-authority-notices'),
     ApiOperation({
       summary: 'Actualizar aviso judicial',
@@ -78,7 +81,6 @@ export function ApiUpdateJudicialAuthorityNotice() {
     }),
     ApiParam({ name: 'id', description: 'ID del paciente' }),
     ApiParam({ name: 'noticeId', description: 'ID del aviso judicial' }),
-    ApiQuery({ name: 'companyId', required: true, type: String }),
     ApiBody({ type: UpdateJudicialAuthorityNoticeDto }),
     ApiOkResponse({ type: JudicialAuthorityNoticeResponseDto }),
     ApiResponse({ status: 400, description: 'Datos inválidos o SOAT no coincide.' }),

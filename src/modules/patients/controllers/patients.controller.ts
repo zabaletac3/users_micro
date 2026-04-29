@@ -64,6 +64,7 @@ import { ApiIdentifyPatient } from '../docs/api-identify-patient.docs';
 import { ApiSearchPatient } from '../docs/api-search-patient.docs';
 import { ApiUpdatePatient } from '../docs/api-update-patient.docs';
 import { ApiListPatients } from '../docs/api-list-patients.docs';
+import { ApiCompanyIdFromAuthContext } from '../docs/api-company-context.docs';
 import { ApiCreatePatient } from '../docs/create-patient.docs';
 import {
   CreatePatientSchema,
@@ -134,20 +135,29 @@ export class PatientsController {
   ) {}
 
   @Version('1')
+  @ApiCompanyIdFromAuthContext()
   @ApiListPatients()
   @Get()
-  async listPatients(@Query() dto: FindAllPatientsDto) {
-    return this.listPatientsService.execute(dto);
+  async listPatients(
+    @Decorators.CurrentCompanyId() companyId: string,
+    @Query() query: FindAllPatientsDto,
+  ) {
+    return this.listPatientsService.execute({ ...query, companyId });
   }
 
   @Version('1')
+  @ApiCompanyIdFromAuthContext()
   @ApiSearchPatient()
   @Get('search')
-  async searchPatient(@Query() dto: SearchPatientQueryDto) {
-    return this.searchPatientService.execute(dto);
+  async searchPatient(
+    @Decorators.CurrentCompanyId() companyId: string,
+    @Query() query: SearchPatientQueryDto,
+  ) {
+    return this.searchPatientService.execute({ ...query, companyId });
   }
 
   @Version('1')
+  @ApiCompanyIdFromAuthContext()
   @ApiListPatientSoatCases()
   @Get(':id/soat-cases')
   async listPatientSoatCases(
@@ -158,99 +168,111 @@ export class PatientsController {
   }
 
   @Version('1')
+  @ApiCompanyIdFromAuthContext()
   @ApiGetPatientSoatCaseById()
   @Get(':id/soat-cases/:soatCaseId')
   async getPatientSoatCaseById(
     @Param('id') id: string,
     @Param('soatCaseId') soatCaseId: string,
-    @Query('companyId') companyId: string,
+    @Decorators.CurrentCompanyId() companyId: string,
   ) {
     return this.findPatientSoatCaseByIdService.execute(id, companyId, soatCaseId);
   }
 
   @Version('1')
+  @ApiCompanyIdFromAuthContext()
   @ApiCreatePatientSoatCase()
   @HttpCode(HttpStatus.CREATED)
   @UsePipes(new Pipes.JoiValidationPipe(CreatePatientSoatCaseSchema))
   @Post(':id/soat-cases')
   async createPatientSoatCase(
     @Param('id') id: string,
-    @Query('companyId') companyId: string,
+    @Decorators.CurrentCompanyId() companyId: string,
     @Body() dto: CreatePatientSoatCaseDto,
   ) {
     return this.createPatientSoatCaseService.execute(id, companyId, dto);
   }
 
   @Version('1')
+  @ApiCompanyIdFromAuthContext()
   @ApiUpdatePatientSoatCase()
   @UsePipes(new Pipes.JoiValidationPipe(UpdatePatientSoatCaseSchema))
   @Patch(':id/soat-cases/:soatCaseId')
   async updatePatientSoatCase(
     @Param('id') id: string,
     @Param('soatCaseId') soatCaseId: string,
-    @Query('companyId') companyId: string,
+    @Decorators.CurrentCompanyId() companyId: string,
     @Body() dto: UpdatePatientSoatCaseDto,
   ) {
     return this.updatePatientSoatCaseService.execute(id, companyId, soatCaseId, dto);
   }
 
   @Version('1')
+  @ApiCompanyIdFromAuthContext()
   @ApiListJudicialAuthorityNotices()
   @Get(':id/judicial-authority-notices')
   async listJudicialAuthorityNotices(
     @Param('id') id: string,
-    @Query('companyId') companyId: string,
+    @Decorators.CurrentCompanyId() companyId: string,
     @Query('soatCaseId') soatCaseId?: string,
   ) {
     return this.listJudicialAuthorityNoticesService.execute(id, companyId, soatCaseId);
   }
 
   @Version('1')
+  @ApiCompanyIdFromAuthContext()
   @ApiGetJudicialAuthorityNoticeById()
   @Get(':id/judicial-authority-notices/:noticeId')
   async getJudicialAuthorityNoticeById(
     @Param('id') id: string,
     @Param('noticeId') noticeId: string,
-    @Query('companyId') companyId: string,
+    @Decorators.CurrentCompanyId() companyId: string,
   ) {
     return this.findJudicialAuthorityNoticeByIdService.execute(id, companyId, noticeId);
   }
 
   @Version('1')
+  @ApiCompanyIdFromAuthContext()
   @ApiCreateJudicialAuthorityNotice()
   @HttpCode(HttpStatus.CREATED)
   @UsePipes(new Pipes.JoiValidationPipe(CreateJudicialAuthorityNoticeSchema))
   @Post(':id/judicial-authority-notices')
   async createJudicialAuthorityNotice(
     @Param('id') id: string,
-    @Query('companyId') companyId: string,
+    @Decorators.CurrentCompanyId() companyId: string,
     @Body() dto: CreateJudicialAuthorityNoticeDto,
   ) {
     return this.createJudicialAuthorityNoticeService.execute(id, companyId, dto);
   }
 
   @Version('1')
+  @ApiCompanyIdFromAuthContext()
   @ApiUpdateJudicialAuthorityNotice()
   @UsePipes(new Pipes.JoiValidationPipe(UpdateJudicialAuthorityNoticeSchema))
   @Patch(':id/judicial-authority-notices/:noticeId')
   async updateJudicialAuthorityNotice(
     @Param('id') id: string,
     @Param('noticeId') noticeId: string,
-    @Query('companyId') companyId: string,
+    @Decorators.CurrentCompanyId() companyId: string,
     @Body() dto: UpdateJudicialAuthorityNoticeDto,
   ) {
     return this.updateJudicialAuthorityNoticeService.execute(id, companyId, noticeId, dto);
   }
 
   @Version('1')
+  @ApiCompanyIdFromAuthContext()
   @ApiResponse({
     status: 200,
     description: 'Patient found.',
     type: FindPatientByIdResponseDto,
   })
   @Get(':id')
-  async findPatientById(@Param('id') id: string, @Query() dto: FindPatientByIdDto) {
-    return this.findPatientByIdService.execute(id, dto);
+  async findPatientById(
+    @Param('id') id: string,
+    @Decorators.CurrentCompanyId() companyId: string,
+    @Query() query: FindPatientByIdDto,
+  ) {
+    return this.findPatientByIdService.execute(id, { ...query, companyId });
   }
 
   @Version('1')
@@ -272,12 +294,13 @@ export class PatientsController {
   }
 
   @Version('1')
+  @ApiCompanyIdFromAuthContext()
   @ApiImportPatient()
   @UsePipes(new Pipes.JoiValidationPipe(ImportPatientSchema))
   @Post(':id/import')
   async import(
     @Param('id') id: string,
-    @Query('companyId') companyId: string,
+    @Decorators.CurrentCompanyId() companyId: string,
     @Body() dto: ImportPatientDto,
     @Decorators.CurrentAuthzContext()
     authzContext: { principal: { userId: string } },
@@ -290,12 +313,13 @@ export class PatientsController {
   }
 
   @Version('1')
+  @ApiCompanyIdFromAuthContext()
   @ApiMergePatient()
   @UsePipes(new Pipes.JoiValidationPipe(MergePatientSchema))
   @Post(':id/merge')
   async merge(
     @Param('id') id: string,
-    @Query('companyId') companyId: string,
+    @Decorators.CurrentCompanyId() companyId: string,
     @Body() dto: MergePatientDto,
     @Decorators.CurrentAuthzContext()
     authzContext: { principal: { userId: string } },
@@ -308,12 +332,13 @@ export class PatientsController {
   }
 
   @Version('1')
+  @ApiCompanyIdFromAuthContext()
   @ApiIdentifyPatient()
   @UsePipes(new Pipes.JoiValidationPipe(IdentifyPatientSchema))
   @Patch(':id/identify')
   async identify(
     @Param('id') id: string,
-    @Query('companyId') companyId: string,
+    @Decorators.CurrentCompanyId() companyId: string,
     @Body() dto: IdentifyPatientDto,
     @Decorators.CurrentAuthzContext()
     authzContext: { principal: { userId: string } },
@@ -326,12 +351,13 @@ export class PatientsController {
   }
 
   @Version('1')
+  @ApiCompanyIdFromAuthContext()
   @ApiUpdatePatient()
   @UsePipes(new Pipes.JoiValidationPipe(UpdatePatientSchema))
   @Patch(':id')
   async update(
     @Param('id') id: string,
-    @Query('companyId') companyId: string,
+    @Decorators.CurrentCompanyId() companyId: string,
     @Body() dto: UpdatePatientDto,
     @Decorators.CurrentAuthzContext()
     authzContext: { principal: { userId: string } },

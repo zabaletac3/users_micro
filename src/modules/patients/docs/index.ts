@@ -1,3 +1,4 @@
+export { ApiCompanyIdFromAuthContext } from './api-company-context.docs';
 export { ApiCreatePatient } from './create-patient.docs';
 export { ApiListPatients } from './api-list-patients.docs';
 export { ApiUpdatePatient } from './api-update-patient.docs';

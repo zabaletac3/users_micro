@@ -17,20 +17,17 @@ import {
   UpdatePatientSoatCaseDto,
 } from '@shared/dto/patient-soat-case.dto';
 
+import { ApiCompanyIdFromAuthContext } from './api-company-context.docs';
+
 export function ApiListPatientSoatCases() {
   return applyDecorators(
+    ApiCompanyIdFromAuthContext(),
     ApiOperation({
       summary: 'Listar casos SOAT del paciente',
       description:
         'Devuelve los expedientes SOAT del paciente para la IPS indicada, del más reciente al más antiguo.',
     }),
     ApiParam({ name: 'id', description: 'ID del paciente', example: '6931b22e9078fac94c48c84c' }),
-    ApiQuery({
-      name: 'companyId',
-      required: true,
-      type: String,
-      description: 'ID de la empresa (IPS) a la que pertenece el paciente.',
-    }),
     ApiOkResponse({
       description: 'Lista de casos SOAT.',
       type: PatientSoatCaseListResponseDto,
@@ -41,10 +38,10 @@ export function ApiListPatientSoatCases() {
 
 export function ApiGetPatientSoatCaseById() {
   return applyDecorators(
+    ApiCompanyIdFromAuthContext(),
     ApiOperation({ summary: 'Obtener un caso SOAT por ID' }),
     ApiParam({ name: 'id', description: 'ID del paciente' }),
     ApiParam({ name: 'soatCaseId', description: 'ID del caso SOAT' }),
-    ApiQuery({ name: 'companyId', required: true, type: String, description: 'ID de la IPS.' }),
     ApiOkResponse({
       description: 'Caso encontrado.',
       type: PatientSoatCaseResponseDto,
@@ -55,13 +52,13 @@ export function ApiGetPatientSoatCaseById() {
 
 export function ApiCreatePatientSoatCase() {
   return applyDecorators(
+    ApiCompanyIdFromAuthContext(),
     ApiOperation({
       summary: 'Registrar un caso SOAT',
       description:
         'Crea un nuevo expediente SOAT asociado al paciente e IPS. El cuerpo incluye el formulario completo.',
     }),
     ApiParam({ name: 'id', description: 'ID del paciente' }),
-    ApiQuery({ name: 'companyId', required: true, type: String, description: 'ID de la IPS.' }),
     ApiBody({ type: CreatePatientSoatCaseDto }),
     ApiCreatedResponse({
       description: 'Caso creado.',
@@ -74,13 +71,13 @@ export function ApiCreatePatientSoatCase() {
 
 export function ApiUpdatePatientSoatCase() {
   return applyDecorators(
+    ApiCompanyIdFromAuthContext(),
     ApiOperation({
       summary: 'Actualizar un caso SOAT',
       description: 'Actualiza estado y/o reemplaza el formulario completo del caso.',
     }),
     ApiParam({ name: 'id', description: 'ID del paciente' }),
     ApiParam({ name: 'soatCaseId', description: 'ID del caso SOAT' }),
-    ApiQuery({ name: 'companyId', required: true, type: String, description: 'ID de la IPS.' }),
     ApiBody({ type: UpdatePatientSoatCaseDto }),
     ApiOkResponse({
       description: 'Caso actualizado.',

@@ -1,10 +1,13 @@
 import { applyDecorators } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { FindPatientByIdResponseDto } from '@shared/dto/find-patient-by-id-response.dto';
 import { MergePatientDto } from '@shared/dto/merge-patient.dto';
 
+import { ApiCompanyIdFromAuthContext } from './api-company-context.docs';
+
 export function ApiMergePatient() {
   return applyDecorators(
+    ApiCompanyIdFromAuthContext(),
     ApiOperation({
       summary: 'Merge an NN patient into an identified patient',
       description: `Unifies an unidentified (NN) patient with an existing identified patient in the same company.
@@ -21,13 +24,6 @@ Used when \`GET /patients/search\` returns a match within the same IPS, meaning 
 - The patient in \`:id\` must exist, belong to the given company, and have documentType = NN
 - The \`targetPatientId\` must exist, belong to the same company, and NOT be of type NN`,
     }),
-    ApiQuery({
-      name: 'companyId',
-      required: true,
-      type: String,
-      description: 'Company (IPS) ID both patients belong to.',
-      example: '6931b22e9078fac94c48c84c',
-    }),
     ApiBody({ type: MergePatientDto }),
     ApiResponse({
       status: 200,
@@ -41,7 +37,7 @@ Used when \`GET /patients/search\` returns a match within the same IPS, meaning 
 | Error Key | Description |
 |-----------|-------------|
 | \`PATIENT_REQUIRED_OR_INVALID\` | The NN patient ID in the URL is missing or not a valid ObjectId |
-| \`COMPANY_REQUIRED_OR_INVALID\` | The companyId query param is missing or not a valid ObjectId |
+| \`COMPANY_REQUIRED_OR_INVALID\` | IPS ausente o inválida (JWT o cabeceras \`x-company-id\` / \`company-id\`) |
 | \`TARGET_PATIENT_REQUIRED_OR_INVALID\` | targetPatientId is missing or not a valid ObjectId |
 | \`CANNOT_MERGE_PATIENT_WITH_ITSELF\` | The NN patient ID and targetPatientId are the same |
 | \`PATIENT_IS_NOT_NN\` | The patient in :id is not of type NN |

@@ -3,8 +3,11 @@ import { ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
 import { SearchPatientResponseItemDto } from '@shared/dto/search-patient.dto';
 import { Enums } from 'lideris-commoms-microservice';
 
+import { ApiCompanyIdFromAuthContext } from './api-company-context.docs';
+
 export function ApiSearchPatient() {
   return applyDecorators(
+    ApiCompanyIdFromAuthContext(),
     ApiOperation({
       summary: 'Search patient by document',
       description: `Searches for patients matching a given documentType and documentNumber across all companies.
@@ -17,14 +20,7 @@ Used in the NN identification flow to determine the next action:
 | Match found in the same company | **Merge** — unify the NN with the existing patient |
 | Match found in another company | **Import** — link the existing patient to this company |
 
-The \`companies\` array in each result can be compared against the current \`companyId\` to determine which case applies.`,
-    }),
-    ApiQuery({
-      name: 'companyId',
-      required: true,
-      type: String,
-      description: 'Company (IPS) ID of the user performing the search.',
-      example: '6931b22e9078fac94c48c84c',
+The \`companies\` array in each result can be compared against the current IPS (cabecera \`x-company-id\` o compañía en JWT) para determinar el caso.`,
     }),
     ApiQuery({
       name: 'documentType',
@@ -50,7 +46,7 @@ The \`companies\` array in each result can be compared against the current \`com
 
 | Error Key | Description |
 |-----------|-------------|
-| \`COMPANY_REQUIRED_OR_INVALID\` | The companyId query param is missing or not a valid ObjectId |
+| \`COMPANY_REQUIRED_OR_INVALID\` | IPS ausente o inválida (contexto JWT o cabeceras \`x-company-id\` / \`company-id\`) |
 | \`DOCUMENT_TYPE_REQUIRED\` | documentType is missing |
 | \`DOCUMENT_NUMBER_REQUIRED\` | documentNumber is missing |`,
     }),

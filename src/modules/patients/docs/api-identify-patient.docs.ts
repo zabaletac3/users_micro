@@ -1,10 +1,13 @@
 import { applyDecorators } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { FindPatientByIdResponseDto } from '@shared/dto/find-patient-by-id-response.dto';
 import { IdentifyPatientDto } from '@shared/dto/identify-patient.dto';
 
+import { ApiCompanyIdFromAuthContext } from './api-company-context.docs';
+
 export function ApiIdentifyPatient() {
   return applyDecorators(
+    ApiCompanyIdFromAuthContext(),
     ApiOperation({
       summary: 'Identify an NN patient',
       description: `Converts an unidentified (NN) patient into a fully identified patient.
@@ -21,13 +24,6 @@ This endpoint is used when the identity of an NN patient has been confirmed and 
 - The patient must currently have documentType = NN
 - The documentType in the body cannot be NN`,
     }),
-    ApiQuery({
-      name: 'companyId',
-      required: true,
-      type: String,
-      description: 'Company (IPS) ID the patient belongs to.',
-      example: '6931b22e9078fac94c48c84c',
-    }),
     ApiBody({ type: IdentifyPatientDto }),
     ApiResponse({
       status: 200,
@@ -41,7 +37,7 @@ This endpoint is used when the identity of an NN patient has been confirmed and 
 | Error Key | Description |
 |-----------|-------------|
 | \`PATIENT_REQUIRED_OR_INVALID\` | The patient ID in the URL is missing or not a valid ObjectId |
-| \`COMPANY_REQUIRED_OR_INVALID\` | The companyId query param is missing or not a valid ObjectId |
+| \`COMPANY_REQUIRED_OR_INVALID\` | IPS ausente o inválida (JWT o cabeceras \`x-company-id\` / \`company-id\`) |
 | \`PATIENT_IS_NOT_NN\` | The patient is not of type NN and cannot be identified through this endpoint |
 | \`DOCUMENT_TYPE_NN_NOT_ALLOWED\` | documentType in the body cannot be NN |`,
     }),

@@ -1,10 +1,13 @@
 import { applyDecorators } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { FindPatientByIdResponseDto } from '@shared/dto/find-patient-by-id-response.dto';
 import { UpdatePatientDto } from '@shared/dto/update-patient.dto';
 
+import { ApiCompanyIdFromAuthContext } from './api-company-context.docs';
+
 export function ApiUpdatePatient() {
   return applyDecorators(
+    ApiCompanyIdFromAuthContext(),
     ApiOperation({
       summary: 'Update a patient',
       description: `Updates an existing patient. All fields are optional — only the provided fields will be modified.
@@ -29,13 +32,6 @@ The update is split into four independent steps:
 
 All four steps can be sent in a single request.`,
     }),
-    ApiQuery({
-      name: 'companyId',
-      required: true,
-      type: String,
-      description: 'Company (IPS) ID the patient belongs to.',
-      example: '6931b22e9078fac94c48c84c',
-    }),
     ApiBody({ type: UpdatePatientDto }),
     ApiResponse({
       status: 200,
@@ -49,7 +45,7 @@ All four steps can be sent in a single request.`,
 | Error Key | Description |
 |-----------|-------------|
 | \`PATIENT_REQUIRED_OR_INVALID\` | The patient ID in the URL is missing or not a valid ObjectId |
-| \`COMPANY_REQUIRED_OR_INVALID\` | The companyId query param is missing or not a valid ObjectId |
+| \`COMPANY_REQUIRED_OR_INVALID\` | IPS ausente o inválida (JWT o cabeceras \`x-company-id\` / \`company-id\`) |
 | \`DOCUMENT_UPDATE_NOT_ALLOWED\` | documentType or documentNumber can only be updated for RN (newborn) patients |
 | \`AGREEMENT_TYPE_REQUIRED_TO_CREATE_AFFILIATION\` | agreementType is required when creating a new affiliation |
 | \`PHONE_REQUIRED_TO_REMOVE_SECONDARY_CONTACT\` | None of the contacts sent for removal has a phone field |

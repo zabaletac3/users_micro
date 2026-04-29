@@ -3,14 +3,16 @@ import { ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
 import { ListPatientsResponseDto } from '@shared/dto/list-patient-response.dto';
 import { Enums } from 'lideris-commoms-microservice';
 
+import { ApiCompanyIdFromAuthContext } from './api-company-context.docs';
+
 export function ApiListPatients() {
   return applyDecorators(
+    ApiCompanyIdFromAuthContext(),
     ApiOperation({
       summary: 'Get all patients',
       description:
         'Returns a paginated and filtered list of patients for a company. Supports search by serial, name, document number, email and affiliation. Also returns dashboard metrics.',
     }),
-    ApiQuery({ name: 'companyId', required: true, type: String }),
     ApiQuery({ name: 'search', required: false, type: String }),
     ApiQuery({ name: 'name', required: false, type: String }),
     ApiQuery({ name: 'documentNumber', required: false, type: String }),
@@ -32,7 +34,7 @@ export function ApiListPatients() {
 
 | Error Key | Description |
 |-----------|-------------|
-| \`COMPANY_REQUIRED_OR_INVALID\` | companyId is missing or not a valid ObjectId |
+| \`COMPANY_REQUIRED_OR_INVALID\` | La IPS no está en contexto (JWT) ni en cabecera \`x-company-id\` / \`company-id\`, o no es un ObjectId válido |
 `,
     }),
   );
