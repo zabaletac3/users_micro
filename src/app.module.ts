@@ -6,6 +6,7 @@ import { Interceptors, Middlewares, HealthcheckController } from 'lideris-commom
 import * as Joi from 'joi';
 
 import { UsersModule } from './modules/users/users.module';
+import { PatientsModule } from './modules/patients/patients.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { UsersModule } from './modules/users/users.module';
       }),
     }),
     UsersModule,
+    PatientsModule,
   ],
   controllers: [HealthcheckController],
   providers: [
