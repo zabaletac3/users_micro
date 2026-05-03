@@ -5,6 +5,7 @@ import { Schemas, Utils } from 'lideris-commoms-microservice';
 import { FindAllPatientsDto } from '@shared/dto/find-all-patient.dto';
 import { ListPatientsResponseDto, PatientMetricsDto } from '@shared/dto/list-patient-response.dto';
 import { Enums } from 'lideris-commoms-microservice';
+import { I18nKeys } from '@shared/constants/i18n-keys.constants';
 
 @Injectable()
 export class ListPatientsService {
@@ -45,7 +46,7 @@ export class ListPatientsService {
     });
 
     if (!companyId || !Types.ObjectId.isValid(companyId)) {
-      throw new BadRequestException('COMPANY_REQUIRED_OR_INVALID');
+      throw new BadRequestException(I18nKeys.COMPANY_REQUIRED_OR_INVALID);
     }
 
     const companyObjectId = new Types.ObjectId(companyId);

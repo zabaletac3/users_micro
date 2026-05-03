@@ -4,6 +4,7 @@ import { Model, Types } from 'mongoose';
 import { Schemas } from 'lideris-commoms-microservice';
 import { FindPatientByIdDto } from '@shared/dto/find-patient-by-id.dto';
 import { FindPatientByIdResponseDto } from '@shared/dto/find-patient-by-id-response.dto';
+import { I18nKeys } from '@shared/constants/i18n-keys.constants';
 
 @Injectable()
 export class FindPatientByIdService {
@@ -20,11 +21,11 @@ export class FindPatientByIdService {
     const documentSkip = Math.max(0, Math.floor(Number(dto.documentSkip) || 0));
 
     if (!companyId || !Types.ObjectId.isValid(companyId)) {
-      throw new BadRequestException('COMPANY_REQUIRED_OR_INVALID');
+      throw new BadRequestException(I18nKeys.COMPANY_REQUIRED_OR_INVALID);
     }
 
     if (!id || !Types.ObjectId.isValid(id)) {
-      throw new BadRequestException('PATIENT_REQUIRED_OR_INVALID');
+      throw new BadRequestException(I18nKeys.PATIENTS_REQUIRED_OR_INVALID);
     }
 
     const companyObjectId = new Types.ObjectId(companyId);
@@ -188,7 +189,7 @@ export class FindPatientByIdService {
     ]);
 
     if (!result[0]) {
-      throw new NotFoundException('PATIENT_NOT_FOUND');
+      throw new NotFoundException(I18nKeys.PATIENTS_NOT_FOUND);
     }
 
     return result[0];

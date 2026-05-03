@@ -4,6 +4,7 @@ import { Schemas, Enums } from 'lideris-commoms-microservice';
 import { Connection, Model, Types } from 'mongoose';
 import { CreatePatientDto } from '@shared/dto/create-patient.dto';
 import { FindPatientByIdResponseDto } from '@shared/dto/find-patient-by-id-response.dto';
+import { I18nKeys } from '@shared/constants/i18n-keys.constants';
 
 import { FindPatientByIdService } from './find-patient-by-id.service';
 
@@ -128,7 +129,7 @@ export class CreatePatientService {
   ): Promise<Schemas.UserDocument> {
     const company = await this.companyModel.findById(dto.companyId, { _id: 1, name: 1 });
 
-    if (!company) throw new NotFoundException('COMPANY_NOT_FOUND');
+    if (!company) throw new NotFoundException(I18nKeys.COMPANY_REQUIRED_OR_INVALID);
 
     const patientHistory: Schemas.CommonHistory = {
       eventType: Enums.PatientHistoryEventTypeEnum.CREATED,
@@ -181,9 +182,11 @@ export class CreatePatientService {
           : Promise.resolve(null),
       ]);
 
-      if (!company) throw new NotFoundException('COMPANY_NOT_FOUND');
-      if (!mother) throw new NotFoundException('MOTHER_NOT_FOUND');
-      if (dto.affiliation?.payerId && !payer) throw new NotFoundException('PAYER_NOT_FOUND');
+      if (!company) throw new NotFoundException(I18nKeys.COMPANY_REQUIRED_OR_INVALID);
+
+      if (!mother) throw new NotFoundException(I18nKeys.PATIENTS_MOTHER_NOT_FOUND);
+      if (dto.affiliation?.payerId && !payer)
+        throw new NotFoundException(I18nKeys.PATIENTS_PAYER_NOT_FOUND);
 
       const rnId = new Types.ObjectId();
       const rnName = this.resolveNewbornName(mother, dto.gender);
@@ -270,15 +273,17 @@ export class CreatePatientService {
         : Promise.resolve([]),
     ]);
 
-    if (!company) throw new NotFoundException('COMPANY_NOT_FOUND');
-    if (payerId && !payer) throw new NotFoundException('PAYER_NOT_FOUND');
+    if (!company) throw new NotFoundException(I18nKeys.COMPANY_REQUIRED_OR_INVALID);
+    if (payerId && !payer) throw new NotFoundException(I18nKeys.PATIENTS_PAYER_NOT_FOUND);
 
     if (documents?.length && documents.length !== documentsExists.length) {
       const missingIds = documents.filter(
         (d) => !documentsExists.map((doc) => doc._id.toString()).includes(d),
       );
 
-      throw new NotFoundException(`DOCUMENTS_NOT_FOUND: ${missingIds.join(', ')}`);
+      throw new NotFoundException(
+        `${I18nKeys.PATIENTS_DOCUMENTS_NOT_FOUND}: ${missingIds.join(', ')}`,
+      );
     }
 
     return { company, payer, documents: documentsExists };

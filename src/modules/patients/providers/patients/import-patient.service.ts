@@ -4,6 +4,7 @@ import { Connection, Model, Types } from 'mongoose';
 import { Schemas, Enums } from 'lideris-commoms-microservice';
 import { ImportPatientDto } from '@shared/dto/import-patient.dto';
 import { FindPatientByIdResponseDto } from '@shared/dto/find-patient-by-id-response.dto';
+import { I18nKeys } from '@shared/constants/i18n-keys.constants';
 
 import { FindPatientByIdService } from './find-patient-by-id.service';
 
@@ -27,15 +28,15 @@ export class ImportPatientService {
     userId: string,
   ): Promise<FindPatientByIdResponseDto> {
     if (!Types.ObjectId.isValid(id)) {
-      throw new BadRequestException('PATIENT_REQUIRED_OR_INVALID');
+      throw new BadRequestException(I18nKeys.PATIENTS_REQUIRED_OR_INVALID);
     }
 
     if (!companyId || !Types.ObjectId.isValid(companyId)) {
-      throw new BadRequestException('COMPANY_REQUIRED_OR_INVALID');
+      throw new BadRequestException(I18nKeys.COMPANY_REQUIRED_OR_INVALID);
     }
 
     if (!Types.ObjectId.isValid(dto.targetPatientId)) {
-      throw new BadRequestException('TARGET_PATIENT_REQUIRED_OR_INVALID');
+      throw new BadRequestException(I18nKeys.PATIENTS_TARGET_REQUIRED_OR_INVALID);
     }
 
     const patientObjectId = new Types.ObjectId(id);
@@ -43,7 +44,7 @@ export class ImportPatientService {
     const targetObjectId = new Types.ObjectId(dto.targetPatientId);
 
     if (patientObjectId.equals(targetObjectId)) {
-      throw new BadRequestException('CANNOT_IMPORT_PATIENT_WITH_ITSELF');
+      throw new BadRequestException(I18nKeys.PATIENTS_CANNOT_IMPORT_WITH_ITSELF);
     }
 
     const [nnPatient, targetPatient] = await Promise.all([
@@ -54,11 +55,11 @@ export class ImportPatientService {
       this.userModel.findOne({ _id: targetObjectId }, { _id: 1, documentType: 1, companies: 1 }),
     ]);
 
-    if (!nnPatient) throw new NotFoundException('PATIENT_NOT_FOUND');
-    if (!targetPatient) throw new NotFoundException('TARGET_PATIENT_NOT_FOUND');
+    if (!nnPatient) throw new NotFoundException(I18nKeys.PATIENTS_NOT_FOUND);
+    if (!targetPatient) throw new NotFoundException(I18nKeys.PATIENTS_TARGET_NOT_FOUND);
 
     if (targetPatient.documentType === Enums.PatientDocumentType.NN) {
-      throw new BadRequestException('TARGET_PATIENT_IS_NN');
+      throw new BadRequestException(I18nKeys.PATIENTS_TARGET_IS_NN);
     }
 
     const alreadyInCompany = targetPatient.companies.some((c) =>
@@ -66,7 +67,7 @@ export class ImportPatientService {
     );
 
     if (alreadyInCompany) {
-      throw new BadRequestException('TARGET_PATIENT_ALREADY_IN_COMPANY');
+      throw new BadRequestException(I18nKeys.PATIENTS_TARGET_ALREADY_IN_COMPANY);
     }
 
     // Find current affiliation from any of the patient's existing companies
