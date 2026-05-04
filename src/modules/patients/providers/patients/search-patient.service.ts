@@ -6,6 +6,7 @@ import {
   SearchPatientQueryDto,
   SearchPatientResponseItemDto,
 } from '@shared/dto/search-patient.dto';
+import { I18nKeys } from '@shared/constants/i18n-keys.constants';
 
 @Injectable()
 export class SearchPatientService {
@@ -18,11 +19,11 @@ export class SearchPatientService {
     const { companyId, documentType, documentNumber } = dto;
 
     if (!companyId || !Types.ObjectId.isValid(companyId)) {
-      throw new BadRequestException('COMPANY_REQUIRED_OR_INVALID');
+      throw new BadRequestException(I18nKeys.COMPANY_REQUIRED_OR_INVALID);
     }
 
     if (!documentNumber) {
-      throw new BadRequestException('DOCUMENT_NUMBER_REQUIRED');
+      throw new BadRequestException(I18nKeys.PATIENTS_DOCUMENT_NUMBER_REQUIRED);
     }
 
     const results = await this.userModel

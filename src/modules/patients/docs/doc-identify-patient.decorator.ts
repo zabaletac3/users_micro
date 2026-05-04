@@ -3,7 +3,7 @@ import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { FindPatientByIdResponseDto } from '@shared/dto/find-patient-by-id-response.dto';
 import { IdentifyPatientDto } from '@shared/dto/identify-patient.dto';
 
-import { ApiCompanyIdFromAuthContext } from './api-company-context.docs';
+import { ApiCompanyIdFromAuthContext } from './doc-company-context.decorator';
 
 export function ApiIdentifyPatient() {
   return applyDecorators(

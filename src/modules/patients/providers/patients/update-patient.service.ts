@@ -4,6 +4,7 @@ import { Connection, Model, Types } from 'mongoose';
 import { Schemas, Enums } from 'lideris-commoms-microservice';
 import { UpdatePatientDto } from '@shared/dto/update-patient.dto';
 import { FindPatientByIdResponseDto } from '@shared/dto/find-patient-by-id-response.dto';
+import { I18nKeys } from '@shared/constants/i18n-keys.constants';
 
 import { FindPatientByIdService } from './find-patient-by-id.service';
 
@@ -31,11 +32,11 @@ export class UpdatePatientService {
     userId: string,
   ): Promise<FindPatientByIdResponseDto> {
     if (!Types.ObjectId.isValid(id)) {
-      throw new BadRequestException('PATIENT_REQUIRED_OR_INVALID');
+      throw new BadRequestException(I18nKeys.PATIENTS_REQUIRED_OR_INVALID);
     }
 
     if (!Types.ObjectId.isValid(companyId)) {
-      throw new BadRequestException('COMPANY_REQUIRED_OR_INVALID');
+      throw new BadRequestException(I18nKeys.COMPANY_REQUIRED_OR_INVALID);
     }
 
     const patientObjectId = new Types.ObjectId(id);
@@ -46,13 +47,13 @@ export class UpdatePatientService {
       { _id: 1, documentType: 1 },
     );
 
-    if (!patient) throw new NotFoundException('PATIENT_NOT_FOUND');
+    if (!patient) throw new NotFoundException(I18nKeys.PATIENTS_NOT_FOUND);
 
     if (
       (dto.documentType !== undefined || dto.documentNumber !== undefined) &&
       patient.documentType !== Enums.PatientDocumentType.NEWBORN
     ) {
-      throw new BadRequestException('DOCUMENT_UPDATE_NOT_ALLOWED');
+      throw new BadRequestException(I18nKeys.PATIENTS_DOCUMENT_UPDATE_NOT_ALLOWED);
     }
 
     const { affiliation, addOrRemoveDocuments, addOrRemoveSecondaryContacts, ...basicFields } = dto;
@@ -114,7 +115,7 @@ export class UpdatePatientService {
         _id: new Types.ObjectId(affiliation.payerId),
       });
 
-      if (!payerExists) throw new NotFoundException('PAYER_NOT_FOUND');
+      if (!payerExists) throw new NotFoundException(I18nKeys.PATIENTS_PAYER_NOT_FOUND);
     }
 
     const existing = await this.userAffiliationModel.findOne(
@@ -153,7 +154,7 @@ export class UpdatePatientService {
       );
     } else {
       if (!affiliation.agreementType) {
-        throw new BadRequestException('AGREEMENT_TYPE_REQUIRED_TO_CREATE_AFFILIATION');
+        throw new BadRequestException(I18nKeys.PATIENTS_AGREEMENT_TYPE_REQUIRED);
       }
 
       const session = await this.connection.startSession();
@@ -226,7 +227,9 @@ export class UpdatePatientService {
         const foundIds = found.map((d) => d._id.toString());
         const missing = documentIds.filter((docId: string) => !foundIds.includes(docId));
 
-        throw new NotFoundException(`DOCUMENTS_NOT_FOUND: ${missing.join(', ')}`);
+        throw new NotFoundException(
+          `${I18nKeys.PATIENTS_DOCUMENTS_NOT_FOUND}: ${missing.join(', ')}`,
+        );
       }
 
       await this.userModel.updateOne(
@@ -297,7 +300,7 @@ export class UpdatePatientService {
       const phones = contacts.map((c) => c.phone).filter(Boolean);
 
       if (!phones.length) {
-        throw new BadRequestException('PHONE_REQUIRED_TO_REMOVE_SECONDARY_CONTACT');
+        throw new BadRequestException(I18nKeys.PATIENTS_CONTACT_PHONE_REQUIRED);
       }
 
       await this.userModel.updateOne(
@@ -319,7 +322,7 @@ export class UpdatePatientService {
     if (action === Enums.AddOrRemoveQuery.UPDATE) {
       for (const contact of contacts) {
         if (!contact.oldPhone) {
-          throw new BadRequestException('OLD_PHONE_REQUIRED_TO_UPDATE_SECONDARY_CONTACT');
+          throw new BadRequestException(I18nKeys.PATIENTS_CONTACT_OLD_PHONE_REQUIRED);
         }
 
         const setFields: Record<string, unknown> = {};

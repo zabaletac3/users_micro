@@ -12,153 +12,66 @@ import {
   UsePipes,
   Version,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreatePatientDto } from '@shared/dto/create-patient.dto';
-import { FindAllPatientsDto } from '@shared/dto/find-all-patient.dto';
-import {
-  AffiliationPopulatedDto,
-  PayerPopulatedDto,
-  FindPatientByIdResponseDto,
-} from '@shared/dto/find-patient-by-id-response.dto';
-import { FindPatientByIdDto } from '@shared/dto/find-patient-by-id.dto';
-import { IdentifyPatientDto } from '@shared/dto/identify-patient.dto';
-import { ImportPatientDto } from '@shared/dto/import-patient.dto';
-import {
-  JudicialAuthorityNoticeResponseDto,
-  JudicialAuthorityNoticeListResponseDto,
-} from '@shared/dto/judicial-authority-notice-response.dto';
-import {
-  CreateJudicialAuthorityNoticeDto,
-  UpdateJudicialAuthorityNoticeDto,
-} from '@shared/dto/judicial-authority-notice.dto';
-import { PatientItemResponseDto } from '@shared/dto/list-patient-response.dto';
-import { MergePatientDto } from '@shared/dto/merge-patient.dto';
-import {
-  PatientSoatCaseResponseDto,
-  PatientSoatCaseListResponseDto,
-} from '@shared/dto/patient-soat-case-response.dto';
-import {
-  CreatePatientSoatCaseDto,
-  UpdatePatientSoatCaseDto,
-} from '@shared/dto/patient-soat-case.dto';
-import { SearchPatientQueryDto } from '@shared/dto/search-patient.dto';
-import { UpdatePatientDto } from '@shared/dto/update-patient.dto';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import * as PATIENT_DTOS from '@shared/dto';
 import { Decorators, Pipes } from 'lideris-commoms-microservice';
-import { Schemas } from 'lideris-commoms-microservice';
+import { I18nKeys } from '@shared/constants/i18n-keys.constants';
 
-import {
-  ApiCreateJudicialAuthorityNotice,
-  ApiGetJudicialAuthorityNoticeById,
-  ApiListJudicialAuthorityNotices,
-  ApiUpdateJudicialAuthorityNotice,
-} from '../docs/api-judicial-authority-notice.docs';
-import {
-  ApiCreatePatientSoatCase,
-  ApiGetPatientSoatCaseById,
-  ApiListPatientSoatCases,
-  ApiUpdatePatientSoatCase,
-} from '../docs/api-patient-soat-cases.docs';
-import { ApiImportPatient } from '../docs/api-import-patient.docs';
-import { ApiMergePatient } from '../docs/api-merge-patient.docs';
-import { ApiIdentifyPatient } from '../docs/api-identify-patient.docs';
-import { ApiSearchPatient } from '../docs/api-search-patient.docs';
-import { ApiUpdatePatient } from '../docs/api-update-patient.docs';
-import { ApiListPatients } from '../docs/api-list-patients.docs';
-import { ApiCompanyIdFromAuthContext } from '../docs/api-company-context.docs';
-import { ApiCreatePatient } from '../docs/create-patient.docs';
-import {
-  CreatePatientSchema,
-  CreatePatientSoatCaseSchema,
-  CreateJudicialAuthorityNoticeSchema,
-  IdentifyPatientSchema,
-  ImportPatientSchema,
-  MergePatientSchema,
-  UpdatePatientSchema,
-  UpdatePatientSoatCaseSchema,
-  UpdateJudicialAuthorityNoticeSchema,
-} from '../joi-validation';
-import { CreateJudicialAuthorityNoticeService } from '../services/create-judicial-authority-notice.service';
-import { CreatePatientSoatCaseService } from '../services/create-patient-soat-case.service';
-import { CreatePatientService } from '../services/create-patient.service';
-import { FindJudicialAuthorityNoticeByIdService } from '../services/find-judicial-authority-notice-by-id.service';
-import { FindPatientByIdService } from '../services/find-patient-by-id.service';
-import { FindPatientSoatCaseByIdService } from '../services/find-patient-soat-case-by-id.service';
-import { IdentifyPatientService } from '../services/identify-patient.service';
-import { ImportPatientService } from '../services/import-patient.service';
-import { ListJudicialAuthorityNoticesService } from '../services/list-judicial-authority-notices.service';
-import { ListPatientSoatCasesService } from '../services/list-patient-soat-cases.service';
-import { ListPatientsService } from '../services/list-patients.service';
-import { MergePatientService } from '../services/merge-patient.service';
-import { SearchPatientService } from '../services/search-patient.service';
-import { UpdateJudicialAuthorityNoticeService } from '../services/update-judicial-authority-notice.service';
-import { UpdatePatientSoatCaseService } from '../services/update-patient-soat-case.service';
-import { UpdatePatientService } from '../services/update-patient.service';
+import * as DOCS from '../docs';
+import * as JOI_SCHEMAS from '../joi-validation';
+import * as SOAT_CASE_SERVICES from '../providers/soat-case';
+import * as JUDICIAL_NOTICE_SERVICES from '../providers/judicial-notice';
+import * as PATIENT_SERVICES from '../providers/patients';
 
 @ApiTags('patients')
 @ApiBearerAuth()
-@ApiExtraModels(
-  PatientItemResponseDto,
-  AffiliationPopulatedDto,
-  PayerPopulatedDto,
-  CreatePatientSoatCaseDto,
-  UpdatePatientSoatCaseDto,
-  Schemas.SOATData,
-  Schemas.SoatVehicleOwner,
-  Schemas.SoatVictimTransportCoverage,
-  PatientSoatCaseResponseDto,
-  PatientSoatCaseListResponseDto,
-  CreateJudicialAuthorityNoticeDto,
-  UpdateJudicialAuthorityNoticeDto,
-  Schemas.JudicialReferringIps,
-  JudicialAuthorityNoticeResponseDto,
-  JudicialAuthorityNoticeListResponseDto,
-)
+//TODO: Validar si es necesario el decorador @APiExtraModel()
 @Controller('patients')
 export class PatientsController {
   constructor(
-    private readonly listPatientsService: ListPatientsService,
-    private readonly createPatientService: CreatePatientService,
-    private readonly findPatientByIdService: FindPatientByIdService,
-    private readonly updatePatientService: UpdatePatientService,
-    private readonly searchPatientService: SearchPatientService,
-    private readonly identifyPatientService: IdentifyPatientService,
-    private readonly mergePatientService: MergePatientService,
-    private readonly importPatientService: ImportPatientService,
-    private readonly createPatientSoatCaseService: CreatePatientSoatCaseService,
-    private readonly listPatientSoatCasesService: ListPatientSoatCasesService,
-    private readonly findPatientSoatCaseByIdService: FindPatientSoatCaseByIdService,
-    private readonly updatePatientSoatCaseService: UpdatePatientSoatCaseService,
-    private readonly createJudicialAuthorityNoticeService: CreateJudicialAuthorityNoticeService,
-    private readonly listJudicialAuthorityNoticesService: ListJudicialAuthorityNoticesService,
-    private readonly findJudicialAuthorityNoticeByIdService: FindJudicialAuthorityNoticeByIdService,
-    private readonly updateJudicialAuthorityNoticeService: UpdateJudicialAuthorityNoticeService,
+    private readonly listPatientsService: PATIENT_SERVICES.ListPatientsService,
+    private readonly createPatientService: PATIENT_SERVICES.CreatePatientService,
+    private readonly findPatientByIdService: PATIENT_SERVICES.FindPatientByIdService,
+    private readonly updatePatientService: PATIENT_SERVICES.UpdatePatientService,
+    private readonly searchPatientService: PATIENT_SERVICES.SearchPatientService,
+    private readonly identifyPatientService: PATIENT_SERVICES.IdentifyPatientService,
+    private readonly mergePatientService: PATIENT_SERVICES.MergePatientService,
+    private readonly importPatientService: PATIENT_SERVICES.ImportPatientService,
+    private readonly createPatientSoatCaseService: SOAT_CASE_SERVICES.CreatePatientSoatCaseService,
+    private readonly listPatientSoatCasesService: SOAT_CASE_SERVICES.ListPatientSoatCasesService,
+    private readonly findPatientSoatCaseByIdService: SOAT_CASE_SERVICES.FindPatientSoatCaseByIdService,
+    private readonly updatePatientSoatCaseService: SOAT_CASE_SERVICES.UpdatePatientSoatCaseService,
+    private readonly createJudicialAuthorityNoticeService: JUDICIAL_NOTICE_SERVICES.CreateJudicialAuthorityNoticeService,
+    private readonly listJudicialAuthorityNoticesService: JUDICIAL_NOTICE_SERVICES.ListJudicialAuthorityNoticesService,
+    private readonly findJudicialAuthorityNoticeByIdService: JUDICIAL_NOTICE_SERVICES.FindJudicialAuthorityNoticeByIdService,
+    private readonly updateJudicialAuthorityNoticeService: JUDICIAL_NOTICE_SERVICES.UpdateJudicialAuthorityNoticeService,
   ) {}
 
   @Version('1')
-  @ApiCompanyIdFromAuthContext()
-  @ApiListPatients()
+  @DOCS.ApiCompanyIdFromAuthContext()
+  @DOCS.ApiListPatients()
   @Get()
   async listPatients(
     @Decorators.CurrentCompanyId() companyId: string,
-    @Query() query: FindAllPatientsDto,
+    @Query() query: PATIENT_DTOS.FindAllPatientsDto,
   ) {
     return this.listPatientsService.execute({ ...query, companyId });
   }
 
   @Version('1')
-  @ApiCompanyIdFromAuthContext()
-  @ApiSearchPatient()
+  @DOCS.ApiCompanyIdFromAuthContext()
+  @DOCS.ApiSearchPatient()
   @Get('search')
   async searchPatient(
     @Decorators.CurrentCompanyId() companyId: string,
-    @Query() query: SearchPatientQueryDto,
+    @Query() query: PATIENT_DTOS.SearchPatientQueryDto,
   ) {
     return this.searchPatientService.execute({ ...query, companyId });
   }
 
   @Version('1')
-  @ApiCompanyIdFromAuthContext()
-  @ApiListPatientSoatCases()
+  @DOCS.ApiCompanyIdFromAuthContext()
+  @DOCS.ApiListPatientSoatCases()
   @Get(':id/soat-cases')
   async listPatientSoatCases(
     @Param('id') id: string,
@@ -168,8 +81,8 @@ export class PatientsController {
   }
 
   @Version('1')
-  @ApiCompanyIdFromAuthContext()
-  @ApiGetPatientSoatCaseById()
+  @DOCS.ApiCompanyIdFromAuthContext()
+  @DOCS.ApiGetPatientSoatCaseById()
   @Get(':id/soat-cases/:soatCaseId')
   async getPatientSoatCaseById(
     @Param('id') id: string,
@@ -180,36 +93,36 @@ export class PatientsController {
   }
 
   @Version('1')
-  @ApiCompanyIdFromAuthContext()
-  @ApiCreatePatientSoatCase()
+  @DOCS.ApiCompanyIdFromAuthContext()
+  @DOCS.ApiCreatePatientSoatCase()
   @HttpCode(HttpStatus.CREATED)
-  @UsePipes(new Pipes.JoiValidationPipe(CreatePatientSoatCaseSchema))
+  @UsePipes(new Pipes.JoiValidationPipe(JOI_SCHEMAS.CreatePatientSoatCaseSchema))
   @Post(':id/soat-cases')
   async createPatientSoatCase(
     @Param('id') id: string,
     @Decorators.CurrentCompanyId() companyId: string,
-    @Body() dto: CreatePatientSoatCaseDto,
+    @Body() dto: PATIENT_DTOS.CreatePatientSoatCaseDto,
   ) {
     return this.createPatientSoatCaseService.execute(id, companyId, dto);
   }
 
   @Version('1')
-  @ApiCompanyIdFromAuthContext()
-  @ApiUpdatePatientSoatCase()
-  @UsePipes(new Pipes.JoiValidationPipe(UpdatePatientSoatCaseSchema))
+  @DOCS.ApiCompanyIdFromAuthContext()
+  @DOCS.ApiUpdatePatientSoatCase()
+  @UsePipes(new Pipes.JoiValidationPipe(JOI_SCHEMAS.UpdatePatientSoatCaseSchema))
   @Patch(':id/soat-cases/:soatCaseId')
   async updatePatientSoatCase(
     @Param('id') id: string,
     @Param('soatCaseId') soatCaseId: string,
     @Decorators.CurrentCompanyId() companyId: string,
-    @Body() dto: UpdatePatientSoatCaseDto,
+    @Body() dto: PATIENT_DTOS.UpdatePatientSoatCaseDto,
   ) {
     return this.updatePatientSoatCaseService.execute(id, companyId, soatCaseId, dto);
   }
 
   @Version('1')
-  @ApiCompanyIdFromAuthContext()
-  @ApiListJudicialAuthorityNotices()
+  @DOCS.ApiCompanyIdFromAuthContext()
+  @DOCS.ApiListJudicialAuthorityNotices()
   @Get(':id/judicial-authority-notices')
   async listJudicialAuthorityNotices(
     @Param('id') id: string,
@@ -220,8 +133,8 @@ export class PatientsController {
   }
 
   @Version('1')
-  @ApiCompanyIdFromAuthContext()
-  @ApiGetJudicialAuthorityNoticeById()
+  @DOCS.ApiCompanyIdFromAuthContext()
+  @DOCS.ApiGetJudicialAuthorityNoticeById()
   @Get(':id/judicial-authority-notices/:noticeId')
   async getJudicialAuthorityNoticeById(
     @Param('id') id: string,
@@ -232,140 +145,140 @@ export class PatientsController {
   }
 
   @Version('1')
-  @ApiCompanyIdFromAuthContext()
-  @ApiCreateJudicialAuthorityNotice()
+  @DOCS.ApiCompanyIdFromAuthContext()
+  @DOCS.ApiCreateJudicialAuthorityNotice()
   @HttpCode(HttpStatus.CREATED)
-  @UsePipes(new Pipes.JoiValidationPipe(CreateJudicialAuthorityNoticeSchema))
+  @UsePipes(new Pipes.JoiValidationPipe(JOI_SCHEMAS.CreateJudicialAuthorityNoticeSchema))
   @Post(':id/judicial-authority-notices')
   async createJudicialAuthorityNotice(
     @Param('id') id: string,
     @Decorators.CurrentCompanyId() companyId: string,
-    @Body() dto: CreateJudicialAuthorityNoticeDto,
+    @Body() dto: PATIENT_DTOS.CreateJudicialAuthorityNoticeDto,
   ) {
     return this.createJudicialAuthorityNoticeService.execute(id, companyId, dto);
   }
 
   @Version('1')
-  @ApiCompanyIdFromAuthContext()
-  @ApiUpdateJudicialAuthorityNotice()
-  @UsePipes(new Pipes.JoiValidationPipe(UpdateJudicialAuthorityNoticeSchema))
+  @DOCS.ApiCompanyIdFromAuthContext()
+  @DOCS.ApiUpdateJudicialAuthorityNotice()
+  @UsePipes(new Pipes.JoiValidationPipe(JOI_SCHEMAS.UpdateJudicialAuthorityNoticeSchema))
   @Patch(':id/judicial-authority-notices/:noticeId')
   async updateJudicialAuthorityNotice(
     @Param('id') id: string,
     @Param('noticeId') noticeId: string,
     @Decorators.CurrentCompanyId() companyId: string,
-    @Body() dto: UpdateJudicialAuthorityNoticeDto,
+    @Body() dto: PATIENT_DTOS.UpdateJudicialAuthorityNoticeDto,
   ) {
     return this.updateJudicialAuthorityNoticeService.execute(id, companyId, noticeId, dto);
   }
 
   @Version('1')
-  @ApiCompanyIdFromAuthContext()
+  @DOCS.ApiCompanyIdFromAuthContext()
   @ApiResponse({
     status: 200,
     description: 'Patient found.',
-    type: FindPatientByIdResponseDto,
+    type: PATIENT_DTOS.FindPatientByIdResponseDto,
   })
   @Get(':id')
   async findPatientById(
     @Param('id') id: string,
     @Decorators.CurrentCompanyId() companyId: string,
-    @Query() query: FindPatientByIdDto,
+    @Query() query: PATIENT_DTOS.FindPatientByIdDto,
   ) {
     return this.findPatientByIdService.execute(id, { ...query, companyId });
   }
 
   @Version('1')
-  @ApiCreatePatient()
-  @UsePipes(new Pipes.JoiValidationPipe(CreatePatientSchema))
+  @DOCS.ApiCreatePatient()
+  @UsePipes(new Pipes.JoiValidationPipe(JOI_SCHEMAS.CreatePatientSchema))
   @Post()
   async create(
-    @Body() dto: CreatePatientDto,
+    @Body() dto: PATIENT_DTOS.CreatePatientDto,
     @Decorators.CurrentAuthzContext()
     authzContext: { principal: { userId: string } },
   ) {
     const { userId } = authzContext.principal;
 
     if (!userId) {
-      throw new UnauthorizedException('INVALID_USER_CONTEXT');
+      throw new UnauthorizedException(I18nKeys.COMMON_ERROR_INVALID_USER_CONTEXT);
     }
 
     return this.createPatientService.execute(dto, userId);
   }
 
   @Version('1')
-  @ApiCompanyIdFromAuthContext()
-  @ApiImportPatient()
-  @UsePipes(new Pipes.JoiValidationPipe(ImportPatientSchema))
+  @DOCS.ApiCompanyIdFromAuthContext()
+  @DOCS.ApiImportPatient()
+  @UsePipes(new Pipes.JoiValidationPipe(JOI_SCHEMAS.ImportPatientSchema))
   @Post(':id/import')
   async import(
     @Param('id') id: string,
     @Decorators.CurrentCompanyId() companyId: string,
-    @Body() dto: ImportPatientDto,
+    @Body() dto: PATIENT_DTOS.ImportPatientDto,
     @Decorators.CurrentAuthzContext()
     authzContext: { principal: { userId: string } },
   ) {
     const { userId } = authzContext.principal;
 
-    if (!userId) throw new UnauthorizedException('INVALID_USER_CONTEXT');
+    if (!userId) throw new UnauthorizedException(I18nKeys.COMMON_ERROR_INVALID_USER_CONTEXT);
 
     return this.importPatientService.execute(id, companyId, dto, userId);
   }
 
   @Version('1')
-  @ApiCompanyIdFromAuthContext()
-  @ApiMergePatient()
-  @UsePipes(new Pipes.JoiValidationPipe(MergePatientSchema))
+  @DOCS.ApiCompanyIdFromAuthContext()
+  @DOCS.ApiMergePatient()
+  @UsePipes(new Pipes.JoiValidationPipe(JOI_SCHEMAS.MergePatientSchema))
   @Post(':id/merge')
   async merge(
     @Param('id') id: string,
     @Decorators.CurrentCompanyId() companyId: string,
-    @Body() dto: MergePatientDto,
+    @Body() dto: PATIENT_DTOS.MergePatientDto,
     @Decorators.CurrentAuthzContext()
     authzContext: { principal: { userId: string } },
   ) {
     const { userId } = authzContext.principal;
 
-    if (!userId) throw new UnauthorizedException('INVALID_USER_CONTEXT');
+    if (!userId) throw new UnauthorizedException(I18nKeys.COMMON_ERROR_INVALID_USER_CONTEXT);
 
     return this.mergePatientService.execute(id, companyId, dto, userId);
   }
 
   @Version('1')
-  @ApiCompanyIdFromAuthContext()
-  @ApiIdentifyPatient()
-  @UsePipes(new Pipes.JoiValidationPipe(IdentifyPatientSchema))
+  @DOCS.ApiCompanyIdFromAuthContext()
+  @DOCS.ApiIdentifyPatient()
+  @UsePipes(new Pipes.JoiValidationPipe(JOI_SCHEMAS.IdentifyPatientSchema))
   @Patch(':id/identify')
   async identify(
     @Param('id') id: string,
     @Decorators.CurrentCompanyId() companyId: string,
-    @Body() dto: IdentifyPatientDto,
+    @Body() dto: PATIENT_DTOS.IdentifyPatientDto,
     @Decorators.CurrentAuthzContext()
     authzContext: { principal: { userId: string } },
   ) {
     const { userId } = authzContext.principal;
 
-    if (!userId) throw new UnauthorizedException('INVALID_USER_CONTEXT');
+    if (!userId) throw new UnauthorizedException(I18nKeys.COMMON_ERROR_INVALID_USER_CONTEXT);
 
     return this.identifyPatientService.execute(id, companyId, dto, userId);
   }
 
   @Version('1')
-  @ApiCompanyIdFromAuthContext()
-  @ApiUpdatePatient()
-  @UsePipes(new Pipes.JoiValidationPipe(UpdatePatientSchema))
+  @DOCS.ApiCompanyIdFromAuthContext()
+  @DOCS.ApiUpdatePatient()
+  @UsePipes(new Pipes.JoiValidationPipe(JOI_SCHEMAS.UpdatePatientSchema))
   @Patch(':id')
   async update(
     @Param('id') id: string,
     @Decorators.CurrentCompanyId() companyId: string,
-    @Body() dto: UpdatePatientDto,
+    @Body() dto: PATIENT_DTOS.UpdatePatientDto,
     @Decorators.CurrentAuthzContext()
     authzContext: { principal: { userId: string } },
   ) {
     const { userId } = authzContext.principal;
 
     if (!userId) {
-      throw new UnauthorizedException('INVALID_USER_CONTEXT');
+      throw new UnauthorizedException(I18nKeys.COMMON_ERROR_INVALID_USER_CONTEXT);
     }
 
     return this.updatePatientService.execute(id, companyId, dto, userId);

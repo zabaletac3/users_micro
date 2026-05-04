@@ -3,7 +3,7 @@ import { ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
 import { ListPatientsResponseDto } from '@shared/dto/list-patient-response.dto';
 import { Enums } from 'lideris-commoms-microservice';
 
-import { ApiCompanyIdFromAuthContext } from './api-company-context.docs';
+import { ApiCompanyIdFromAuthContext } from './doc-company-context.decorator';
 
 export function ApiListPatients() {
   return applyDecorators(

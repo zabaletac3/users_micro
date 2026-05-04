@@ -3,22 +3,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Schemas } from 'lideris-commoms-microservice';
 
 import { PatientsController } from './controllers/patients.controller';
-import { CreateJudicialAuthorityNoticeService } from './services/create-judicial-authority-notice.service';
-import { CreatePatientSoatCaseService } from './services/create-patient-soat-case.service';
-import { CreatePatientService } from './services/create-patient.service';
-import { FindJudicialAuthorityNoticeByIdService } from './services/find-judicial-authority-notice-by-id.service';
-import { FindPatientByIdService } from './services/find-patient-by-id.service';
-import { FindPatientSoatCaseByIdService } from './services/find-patient-soat-case-by-id.service';
-import { IdentifyPatientService } from './services/identify-patient.service';
-import { ImportPatientService } from './services/import-patient.service';
-import { ListJudicialAuthorityNoticesService } from './services/list-judicial-authority-notices.service';
-import { ListPatientSoatCasesService } from './services/list-patient-soat-cases.service';
-import { ListPatientsService } from './services/list-patients.service';
-import { MergePatientService } from './services/merge-patient.service';
-import { SearchPatientService } from './services/search-patient.service';
-import { UpdateJudicialAuthorityNoticeService } from './services/update-judicial-authority-notice.service';
-import { UpdatePatientSoatCaseService } from './services/update-patient-soat-case.service';
-import { UpdatePatientService } from './services/update-patient.service';
+import { CreateJudicialAuthorityNoticeService } from './providers/judicial-notice/create-judicial-authority-notice.service';
+import { CreatePatientSoatCaseService } from './providers/soat-case/create-patient-soat-case.service';
+import * as PATIENT_SERVICES from './providers/patients';
+import { FindJudicialAuthorityNoticeByIdService } from './providers/judicial-notice/find-judicial-authority-notice-by-id.service';
+import { FindPatientSoatCaseByIdService } from './providers/soat-case/find-patient-soat-case-by-id.service';
+import { ListJudicialAuthorityNoticesService } from './providers/judicial-notice/list-judicial-authority-notices.service';
+import { ListPatientSoatCasesService } from './providers/soat-case/list-patient-soat-cases.service';
+import { UpdateJudicialAuthorityNoticeService } from './providers/judicial-notice/update-judicial-authority-notice.service';
+import { UpdatePatientSoatCaseService } from './providers/soat-case/update-patient-soat-case.service';
 
 @Module({
   imports: [
@@ -34,14 +27,14 @@ import { UpdatePatientService } from './services/update-patient.service';
     ]),
   ],
   providers: [
-    ListPatientsService,
-    CreatePatientService,
-    FindPatientByIdService,
-    UpdatePatientService,
-    SearchPatientService,
-    IdentifyPatientService,
-    MergePatientService,
-    ImportPatientService,
+    PATIENT_SERVICES.ListPatientsService,
+    PATIENT_SERVICES.CreatePatientService,
+    PATIENT_SERVICES.FindPatientByIdService,
+    PATIENT_SERVICES.UpdatePatientService,
+    PATIENT_SERVICES.SearchPatientService,
+    PATIENT_SERVICES.IdentifyPatientService,
+    PATIENT_SERVICES.MergePatientService,
+    PATIENT_SERVICES.ImportPatientService,
     CreatePatientSoatCaseService,
     ListPatientSoatCasesService,
     FindPatientSoatCaseByIdService,

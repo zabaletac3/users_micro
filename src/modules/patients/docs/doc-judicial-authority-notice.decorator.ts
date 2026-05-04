@@ -18,7 +18,7 @@ import {
   UpdateJudicialAuthorityNoticeDto,
 } from '@shared/dto/judicial-authority-notice.dto';
 
-import { ApiCompanyIdFromAuthContext } from './api-company-context.docs';
+import { ApiCompanyIdFromAuthContext } from './doc-company-context.decorator';
 
 export function ApiListJudicialAuthorityNotices() {
   return applyDecorators(

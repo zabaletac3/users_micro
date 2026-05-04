@@ -2,11 +2,11 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Connection, Model, Types } from 'mongoose';
 import { Schemas, Enums } from 'lideris-commoms-microservice';
-import { FindPatientByIdResponseDto } from '@shared/dto/find-patient-by-id-response.dto';
 import { IdentifyPatientDto } from '@shared/dto/identify-patient.dto';
+import { FindPatientByIdResponseDto } from '@shared/dto/find-patient-by-id-response.dto';
+import { I18nKeys } from '@shared/constants/i18n-keys.constants';
 
 import { FindPatientByIdService } from './find-patient-by-id.service';
-
 @Injectable()
 export class IdentifyPatientService {
   constructor(
@@ -29,11 +29,11 @@ export class IdentifyPatientService {
     userId: string,
   ): Promise<FindPatientByIdResponseDto> {
     if (!Types.ObjectId.isValid(id)) {
-      throw new BadRequestException('PATIENT_REQUIRED_OR_INVALID');
+      throw new BadRequestException(I18nKeys.PATIENTS_REQUIRED_OR_INVALID);
     }
 
     if (!companyId || !Types.ObjectId.isValid(companyId)) {
-      throw new BadRequestException('COMPANY_REQUIRED_OR_INVALID');
+      throw new BadRequestException(I18nKeys.COMPANY_REQUIRED_OR_INVALID);
     }
 
     const patientObjectId = new Types.ObjectId(id);
@@ -44,14 +44,14 @@ export class IdentifyPatientService {
       { _id: 1, documentType: 1 },
     );
 
-    if (!patient) throw new NotFoundException('PATIENT_NOT_FOUND');
+    if (!patient) throw new NotFoundException(I18nKeys.PATIENTS_NOT_FOUND);
 
     if (patient.documentType !== Enums.PatientDocumentType.NN) {
-      throw new BadRequestException('PATIENT_IS_NOT_NN');
+      throw new BadRequestException(I18nKeys.PATIENTS_IS_NOT_NN);
     }
 
     if (dto.documentType === Enums.PatientDocumentType.NN) {
-      throw new BadRequestException('DOCUMENT_TYPE_NN_NOT_ALLOWED');
+      throw new BadRequestException(I18nKeys.PATIENTS_DOCUMENT_TYPE_NN_NOT_ALLOWED);
     }
 
     if (dto.affiliation.payerId) {
@@ -59,7 +59,7 @@ export class IdentifyPatientService {
         _id: new Types.ObjectId(dto.affiliation.payerId),
       });
 
-      if (!payerExists) throw new NotFoundException('PAYER_NOT_FOUND');
+      if (!payerExists) throw new NotFoundException(I18nKeys.PATIENTS_PAYER_NOT_FOUND);
     }
 
     const { affiliation, ...basicFields } = dto;

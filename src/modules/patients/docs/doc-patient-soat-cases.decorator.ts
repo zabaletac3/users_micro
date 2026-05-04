@@ -17,7 +17,7 @@ import {
   UpdatePatientSoatCaseDto,
 } from '@shared/dto/patient-soat-case.dto';
 
-import { ApiCompanyIdFromAuthContext } from './api-company-context.docs';
+import { ApiCompanyIdFromAuthContext } from './doc-company-context.decorator';
 
 export function ApiListPatientSoatCases() {
   return applyDecorators(
