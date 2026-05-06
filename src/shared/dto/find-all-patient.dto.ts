@@ -51,4 +51,11 @@ export class FindAllPatientsDto {
     description: 'Filter patients by payer (EPS) ID.',
   })
   payerId?: string;
+
+  @ApiPropertyOptional({
+    enum: Enums.Gender,
+    example: Enums.Gender.MALE,
+    description: 'Filter patients by gender.',
+  })
+  gender?: Enums.Gender;
 }

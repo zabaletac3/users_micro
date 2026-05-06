@@ -27,6 +27,7 @@ export class ListPatientsService {
       startDate,
       endDate,
       name,
+      gender,
     } = dto;
 
     const limit = Number(dto.limit) || 10;
@@ -61,6 +62,10 @@ export class ListPatientsService {
 
     if (documentType) {
       matchUser.documentType = documentType;
+    }
+
+    if (gender) {
+      matchUser.gender = gender;
     }
 
     if (startDate && endDate) {
@@ -167,6 +172,7 @@ export class ListPatientsService {
                   documentNumber: 1,
                   email: 1,
                   isActive: 1,
+                  gender: 1,
                   affiliation: {
                     _id: 1,
                     agreementType: 1,
