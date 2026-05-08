@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Schemas } from 'lideris-commoms-microservice';
 
 import { PatientsController } from './controllers/patients.controller';
+import { IdDocumentsModule } from './id-documents/id-documents.module';
 import { CreateJudicialAuthorityNoticeService } from './providers/judicial-notice/create-judicial-authority-notice.service';
 import { CreatePatientSoatCaseService } from './providers/soat-case/create-patient-soat-case.service';
 import * as PATIENT_SERVICES from './providers/patients';
@@ -25,6 +26,7 @@ import { UpdatePatientSoatCaseService } from './providers/soat-case/update-patie
       { name: Schemas.JudicialAuthorityNotice.name, schema: Schemas.JudicialAuthorityNoticeSchema },
       { name: Schemas.PatientSoatCase.name, schema: Schemas.PatientSoatCaseSchema },
     ]),
+    IdDocumentsModule,
   ],
   providers: [
     PATIENT_SERVICES.ListPatientsService,

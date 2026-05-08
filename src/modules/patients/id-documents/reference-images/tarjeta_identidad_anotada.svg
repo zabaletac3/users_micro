@@ -1,0 +1,188 @@
+<svg width="100%" viewBox="0 0 682.53 820" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Campos de la Tarjeta de Identidad colombiana anotados</title>
+  <desc>Diagrama de la tarjeta de identidad colombiana (frente y reverso) con cada campo identificado y marcado con líneas guía y etiquetas de color.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <mask id="text-gaps" maskUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="682.53" height="820" fill="white"/>
+      <!-- Etiquetas frente (derecha) -->
+      <rect x="529" y="52" width="132" height="20" fill="black" rx="2"/>
+      <rect x="529" y="83" width="130" height="20" fill="black" rx="2"/>
+      <rect x="529" y="109" width="80" height="20" fill="black" rx="2"/>
+      <rect x="529" y="135" width="80" height="20" fill="black" rx="2"/>
+      <rect x="529" y="161" width="140" height="20" fill="black" rx="2"/>
+      <rect x="529" y="187" width="140" height="20" fill="black" rx="2"/>
+      <!-- Etiquetas reverso (izquierda) -->
+      <rect x="0" y="348" width="56" height="20" fill="black" rx="2"/>
+      <rect x="0" y="447" width="56" height="20" fill="black" rx="2"/>
+      <rect x="0" y="473" width="56" height="20" fill="black" rx="2"/>
+      <!-- Etiquetas reverso (derecha) -->
+      <rect x="529" y="377" width="135" height="20" fill="black" rx="2"/>
+      <!-- Leyenda -->
+      <rect x="116" y="556" width="236" height="22" fill="black" rx="2"/>
+      <rect x="128" y="582" width="128" height="19" fill="black" rx="2"/>
+      <rect x="128" y="602" width="112" height="19" fill="black" rx="2"/>
+      <rect x="128" y="622" width="62" height="19" fill="black" rx="2"/>
+      <rect x="128" y="642" width="61" height="19" fill="black" rx="2"/>
+      <rect x="128" y="662" width="41" height="19" fill="black" rx="2"/>
+      <rect x="128" y="682" width="66" height="19" fill="black" rx="2"/>
+      <rect x="328" y="582" width="124" height="19" fill="black" rx="2"/>
+      <rect x="328" y="602" width="122" height="19" fill="black" rx="2"/>
+      <rect x="328" y="622" width="57" height="19" fill="black" rx="2"/>
+      <rect x="328" y="642" width="159" height="19" fill="black" rx="2"/>
+      <rect x="328" y="662" width="35" height="19" fill="black" rx="2"/>
+      <rect x="328" y="682" width="163" height="19" fill="black" rx="2"/>
+      <rect x="328" y="702" width="185" height="19" fill="black" rx="2"/>
+      <rect x="328" y="722" width="122" height="19" fill="black" rx="2"/>
+      <rect x="328" y="742" width="129" height="19" fill="black" rx="2"/>
+    </mask>
+  </defs>
+
+  <!-- ══════════════════ TÍTULO FRENTE ══════════════════ -->
+  <text x="340" y="22" text-anchor="middle" font-size="14" style="fill:rgb(250, 249, 245);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:auto">FRENTE</text>
+
+  <!-- ══════════════════ TARJETA FRENTE ══════════════════ -->
+  <rect x="100" y="32" width="360" height="220" rx="10" fill="var(--color-background-secondary)" stroke="var(--color-border-primary)" stroke-width="1" style="fill:rgb(38, 38, 36);stroke:rgba(222, 220, 209, 0.4);color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Foto (izquierda) -->
+  <rect x="112" y="52" width="78" height="96" rx="4" fill="var(--color-background-tertiary)" stroke="var(--color-border-secondary)" stroke-width="0.8" style="fill:rgb(20, 20, 19);stroke:rgba(222, 220, 209, 0.3);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="151" y="102" text-anchor="middle" fill="var(--color-text-tertiary)" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:auto">foto</text>
+
+  <!-- Campos frente -->
+  <!-- Título doc -->
+  <rect x="200" y="48" width="136" height="28" rx="3" fill="none" stroke="#185FA5" stroke-width="1" stroke-dasharray="3 2" style="fill:none;stroke:rgb(24, 95, 165);color:rgb(255, 255, 255);stroke-width:1px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Número -->
+  <rect x="200" y="84" width="136" height="18" rx="3" fill="none" stroke="#3B6D11" stroke-width="1" stroke-dasharray="3 2" style="fill:none;stroke:rgb(59, 109, 17);color:rgb(255, 255, 255);stroke-width:1px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Apellidos -->
+  <rect x="200" y="110" width="220" height="18" rx="3" fill="none" stroke="#993C1D" stroke-width="1" stroke-dasharray="3 2" style="fill:none;stroke:rgb(153, 60, 29);color:rgb(255, 255, 255);stroke-width:1px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Nombres -->
+  <rect x="200" y="136" width="220" height="18" rx="3" fill="none" stroke="#854F0B" stroke-width="1" stroke-dasharray="3 2" style="fill:none;stroke:rgb(133, 79, 11);color:rgb(255, 255, 255);stroke-width:1px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Fecha nacimiento -->
+  <rect x="200" y="162" width="220" height="18" rx="3" fill="none" stroke="#185FA5" stroke-width="1" stroke-dasharray="3 2" style="fill:none;stroke:rgb(24, 95, 165);color:rgb(255, 255, 255);stroke-width:1px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Lugar nacimiento -->
+  <rect x="200" y="188" width="220" height="18" rx="3" fill="none" stroke="#3B6D11" stroke-width="1" stroke-dasharray="3 2" style="fill:none;stroke:rgb(59, 109, 17);color:rgb(255, 255, 255);stroke-width:1px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- ─── Etiquetas FRENTE (lado derecho) ─── -->
+  <!-- Título doc -->
+  <line x1="460" y1="62" x2="530" y2="62" stroke="#185FA5" stroke-width="0.8" stroke-dasharray="3 2" marker-end="url(#arrow)" mask="url(#text-gaps)" style="fill:rgb(0, 0, 0);stroke:rgb(24, 95, 165);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="534" y="66" fill="#185FA5" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Título del documento</text>
+
+  <!-- Número -->
+  <line x1="460" y1="93" x2="530" y2="93" stroke="#3B6D11" stroke-width="0.8" stroke-dasharray="3 2" marker-end="url(#arrow)" mask="url(#text-gaps)" style="fill:rgb(0, 0, 0);stroke:rgb(59, 109, 17);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="534" y="97" fill="#3B6D11" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Número de tarjeta</text>
+
+  <!-- Apellidos -->
+  <line x1="460" y1="119" x2="530" y2="119" stroke="#993C1D" stroke-width="0.8" stroke-dasharray="3 2" marker-end="url(#arrow)" mask="url(#text-gaps)" style="fill:rgb(0, 0, 0);stroke:rgb(153, 60, 29);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="534" y="123" fill="#993C1D" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Apellidos</text>
+
+  <!-- Nombres -->
+  <line x1="460" y1="145" x2="530" y2="145" stroke="#854F0B" stroke-width="0.8" stroke-dasharray="3 2" marker-end="url(#arrow)" mask="url(#text-gaps)" style="fill:rgb(0, 0, 0);stroke:rgb(133, 79, 11);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="534" y="149" fill="#854F0B" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Nombres</text>
+
+  <!-- Fecha nacimiento -->
+  <line x1="460" y1="171" x2="530" y2="171" stroke="#185FA5" stroke-width="0.8" stroke-dasharray="3 2" marker-end="url(#arrow)" mask="url(#text-gaps)" style="fill:rgb(0, 0, 0);stroke:rgb(24, 95, 165);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="534" y="175" fill="#185FA5" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Fecha de nacimiento</text>
+
+  <!-- Lugar nacimiento -->
+  <line x1="460" y1="197" x2="530" y2="197" stroke="#3B6D11" stroke-width="0.8" stroke-dasharray="3 2" marker-end="url(#arrow)" mask="url(#text-gaps)" style="fill:rgb(0, 0, 0);stroke:rgb(59, 109, 17);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="534" y="201" fill="#3B6D11" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Lugar de nacimiento</text>
+
+  <!-- Foto -->
+  <line x1="190" y1="100" x2="50" y2="170" stroke="#534AB7" stroke-width="0.8" stroke-dasharray="3 2" marker-end="url(#arrow)" mask="url(#text-gaps)" style="fill:rgb(0, 0, 0);stroke:rgb(83, 74, 183);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="45" y="175" text-anchor="end" fill="#534AB7" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:end;dominant-baseline:auto">Fotografía</text>
+
+  <!-- ══════════════════ TÍTULO REVERSO ══════════════════ -->
+  <text x="340" y="290" text-anchor="middle" font-size="14" style="fill:rgb(250, 249, 245);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:auto">REVERSO</text>
+
+  <!-- ══════════════════ TARJETA REVERSO ══════════════════ -->
+  <rect x="100" y="298" width="360" height="220" rx="10" fill="var(--color-background-secondary)" stroke="var(--color-border-primary)" stroke-width="1" style="fill:rgb(38, 38, 36);stroke:rgba(222, 220, 209, 0.4);color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Huella dactilar -->
+  <rect x="112" y="318" width="68" height="80" rx="4" fill="var(--color-background-tertiary)" stroke="var(--color-border-secondary)" stroke-width="0.8" style="fill:rgb(20, 20, 19);stroke:rgba(222, 220, 209, 0.3);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="146" y="361" text-anchor="middle" fill="var(--color-text-tertiary)" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:auto">huella</text>
+
+  <!-- Campos reverso -->
+  <!-- Estatura -->
+  <rect x="192" y="316" width="48" height="18" rx="3" fill="none" stroke="#993C1D" stroke-width="1" stroke-dasharray="3 2" style="fill:none;stroke:rgb(153, 60, 29);color:rgb(255, 255, 255);stroke-width:1px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Grupo sanguíneo -->
+  <rect x="248" y="316" width="52" height="18" rx="3" fill="none" stroke="#854F0B" stroke-width="1" stroke-dasharray="3 2" style="fill:none;stroke:rgb(133, 79, 11);color:rgb(255, 255, 255);stroke-width:1px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Sexo -->
+  <rect x="308" y="316" width="36" height="18" rx="3" fill="none" stroke="#0F6E56" stroke-width="1" stroke-dasharray="3 2" style="fill:none;stroke:rgb(15, 110, 86);color:rgb(255, 255, 255);stroke-width:1px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Fecha y lugar expedición -->
+  <rect x="192" y="344" width="230" height="36" rx="3" fill="none" stroke="#534AB7" stroke-width="1" stroke-dasharray="3 2" style="fill:none;stroke:rgb(83, 74, 183);color:rgb(255, 255, 255);stroke-width:1px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Código barras -->
+  <rect x="112" y="416" width="260" height="26" rx="3" fill="none" stroke="#5F5E5A" stroke-width="1" stroke-dasharray="3 2" style="fill:none;stroke:rgb(95, 94, 90);color:rgb(255, 255, 255);stroke-width:1px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Número al pie -->
+  <rect x="112" y="456" width="260" height="14" rx="3" fill="none" stroke="#993556" stroke-width="1" stroke-dasharray="3 2" style="fill:none;stroke:rgb(153, 53, 86);color:rgb(255, 255, 255);stroke-width:1px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- ─── Etiquetas REVERSO ─── -->
+  <!-- Huella -->
+  <line x1="100" y1="358" x2="60" y2="358" stroke="#5F5E5A" stroke-width="0.8" stroke-dasharray="3 2" marker-end="url(#arrow)" mask="url(#text-gaps)" style="fill:rgb(0, 0, 0);stroke:rgb(95, 94, 90);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="56" y="362" text-anchor="end" fill="#5F5E5A" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:end;dominant-baseline:auto">Huella dactilar</text>
+
+  <!-- Estatura + G.S. + Sexo -->
+  <line x1="460" y1="325" x2="530" y2="325" stroke="#993C1D" stroke-width="0.8" stroke-dasharray="3 2" marker-end="url(#arrow)" mask="url(#text-gaps)" style="fill:rgb(0, 0, 0);stroke:rgb(153, 60, 29);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="534" y="329" fill="#993C1D" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Estatura / G.S. / Sexo</text>
+
+  <!-- Fecha expedición -->
+  <line x1="460" y1="362" x2="530" y2="362" stroke="#534AB7" stroke-width="0.8" stroke-dasharray="3 2" marker-end="url(#arrow)" mask="url(#text-gaps)" style="fill:rgb(0, 0, 0);stroke:rgb(83, 74, 183);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="534" y="366" fill="#534AB7" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Fecha y lugar de expedición</text>
+
+  <!-- Código barras -->
+  <line x1="100" y1="429" x2="60" y2="429" stroke="#5F5E5A" stroke-width="0.8" stroke-dasharray="3 2" marker-end="url(#arrow)" mask="url(#text-gaps)" style="fill:rgb(0, 0, 0);stroke:rgb(95, 94, 90);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="56" y="433" text-anchor="end" fill="#5F5E5A" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:end;dominant-baseline:auto">Código de barras 2D</text>
+
+  <!-- Número pie -->
+  <line x1="100" y1="463" x2="60" y2="463" stroke="#993556" stroke-width="0.8" stroke-dasharray="3 2" marker-end="url(#arrow)" mask="url(#text-gaps)" style="fill:rgb(0, 0, 0);stroke:rgb(153, 53, 86);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-dasharray:3px, 2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="56" y="467" text-anchor="end" fill="#993556" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:end;dominant-baseline:auto">Número de control al pie</text>
+
+  <!-- ══════════════════ LEYENDA ══════════════════ -->
+  <rect x="100" y="548" width="480" height="250" rx="8" fill="var(--color-background-secondary)" stroke="var(--color-border-tertiary)" stroke-width="0.5" style="fill:rgb(38, 38, 36);stroke:rgba(222, 220, 209, 0.15);color:rgb(255, 255, 255);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="120" y="572" style="fill:rgb(250, 249, 245);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:start;dominant-baseline:auto">Resumen de campos identificados</text>
+
+  <!-- col 1 -->
+  <rect x="116" y="586" width="10" height="10" rx="2" fill="#185FA5" style="fill:rgb(24, 95, 165);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="132" y="596" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Título del documento</text>
+
+  <rect x="116" y="606" width="10" height="10" rx="2" fill="#3B6D11" style="fill:rgb(59, 109, 17);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="132" y="616" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Número de tarjeta</text>
+
+  <rect x="116" y="626" width="10" height="10" rx="2" fill="#993C1D" style="fill:rgb(153, 60, 29);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="132" y="636" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Apellidos</text>
+
+  <rect x="116" y="646" width="10" height="10" rx="2" fill="#854F0B" style="fill:rgb(133, 79, 11);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="132" y="656" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Nombres</text>
+
+  <rect x="116" y="666" width="10" height="10" rx="2" fill="#185FA5" style="fill:rgb(24, 95, 165);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="132" y="676" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Fecha de nacimiento</text>
+
+  <rect x="116" y="686" width="10" height="10" rx="2" fill="#534AB7" style="fill:rgb(83, 74, 183);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="132" y="696" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Fotografía</text>
+
+  <!-- col 2 -->
+  <rect x="316" y="586" width="10" height="10" rx="2" fill="#3B6D11" style="fill:rgb(59, 109, 17);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="332" y="596" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Lugar de nacimiento</text>
+
+  <rect x="316" y="606" width="10" height="10" rx="2" fill="#993C1D" style="fill:rgb(153, 60, 29);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="332" y="616" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Estatura</text>
+
+  <rect x="316" y="626" width="10" height="10" rx="2" fill="#854F0B" style="fill:rgb(133, 79, 11);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="332" y="636" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Grupo sanguíneo (G.S. RH)</text>
+
+  <rect x="316" y="646" width="10" height="10" rx="2" fill="#0F6E56" style="fill:rgb(15, 110, 86);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="332" y="656" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Sexo</text>
+
+  <rect x="316" y="666" width="10" height="10" rx="2" fill="#534AB7" style="fill:rgb(83, 74, 183);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="332" y="676" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Fecha y lugar de expedición</text>
+
+  <rect x="316" y="686" width="10" height="10" rx="2" fill="#5F5E5A" style="fill:rgb(95, 94, 90);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="332" y="696" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Huella dactilar (índice derecho)</text>
+
+  <rect x="316" y="706" width="10" height="10" rx="2" fill="#5F5E5A" style="fill:rgb(95, 94, 90);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="332" y="716" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Código de barras 2D</text>
+
+  <rect x="316" y="726" width="10" height="10" rx="2" fill="#993556" style="fill:rgb(153, 53, 86);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="332" y="736" style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Número de control al pie</text>
+</svg>
