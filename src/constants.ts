@@ -13,4 +13,5 @@ export default {
   KAFKA_CLIENT_ID: process.env.KAFKA_CLIENT_ID || 'micro-users',
   KAFKA_GROUP_ID: process.env.KAFKA_GROUP_ID || 'micro-users-group',
   GRPC_URL_USER: process.env.GRPC_URL_USER || 'localhost:50052',
+  OPENAI_API_KEY: process.env.OPENAI_API_KEY!,
 };

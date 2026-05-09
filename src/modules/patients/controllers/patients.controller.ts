@@ -22,6 +22,11 @@ import * as JOI_SCHEMAS from '../joi-validation';
 import * as SOAT_CASE_SERVICES from '../providers/soat-case';
 import * as JUDICIAL_NOTICE_SERVICES from '../providers/judicial-notice';
 import * as PATIENT_SERVICES from '../providers/patients';
+import { IdDocumentOrchestratorService } from '../id-documents/providers/id-document-orchestrator.service';
+import {
+  ExtractIdDocumentDto,
+  ExtractIdDocumentResponseDto,
+} from '../id-documents/dto/extract-id-document.dto';
 
 @ApiTags('patients')
 @ApiBearerAuth()
@@ -45,6 +50,7 @@ export class PatientsController {
     private readonly listJudicialAuthorityNoticesService: JUDICIAL_NOTICE_SERVICES.ListJudicialAuthorityNoticesService,
     private readonly findJudicialAuthorityNoticeByIdService: JUDICIAL_NOTICE_SERVICES.FindJudicialAuthorityNoticeByIdService,
     private readonly updateJudicialAuthorityNoticeService: JUDICIAL_NOTICE_SERVICES.UpdateJudicialAuthorityNoticeService,
+    private readonly idDocumentOrchestratorService: IdDocumentOrchestratorService,
   ) {}
 
   @Version('1')
@@ -282,5 +288,17 @@ export class PatientsController {
     }
 
     return this.updatePatientService.execute(id, companyId, dto, userId);
+  }
+
+  @Version('1')
+  @ApiResponse({
+    status: 200,
+    description:
+      'Document processed successfully. Returns extracted fields compatible with CreatePatientDto.',
+    type: ExtractIdDocumentResponseDto,
+  })
+  @Post('extract-id-document')
+  async extractIdDocument(@Body() dto: ExtractIdDocumentDto) {
+    return this.idDocumentOrchestratorService.extract(dto.documentUrl);
   }
 }
