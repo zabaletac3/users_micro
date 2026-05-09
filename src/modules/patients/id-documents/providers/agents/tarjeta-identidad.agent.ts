@@ -48,7 +48,7 @@ export class TarjetaIdentidadAgent extends BaseDocumentAgent<typeof extractedFie
     );
   }
 
-  async extract(imageBase64: string): Promise<ExtractedFields> {
+  async extract(imageBase64: string | string[]): Promise<ExtractedFields> {
     return super.extract(imageBase64);
   }
 }
