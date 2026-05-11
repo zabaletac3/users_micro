@@ -17,6 +17,7 @@ import { PatientsModule } from './modules/patients/patients.module';
         PORT_GRPC: Joi.number().default(50052),
         NODE_ENV: Joi.string().valid('development', 'production', 'test').default('development'),
         APP_NAME: Joi.string().default('micro-users'),
+        // Cors
         CORS_ORIGINS: Joi.string().allow('').default(''),
         MONGO_STRING_CONNECTION: Joi.string().required(),
         MONGO_DB_NAME: Joi.string().required(),
