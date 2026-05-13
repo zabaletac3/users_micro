@@ -59,9 +59,12 @@ export class PatientsController {
   @Get()
   async listPatients(
     @Decorators.CurrentCompanyId() companyId: string,
-    @Query() query: PATIENT_DTOS.FindAllPatientsDto,
+    @Decorators.CurrentAuthzContext()
+    authzContext: { principal: { userId: string } },
+    @Query()
+    query: PATIENT_DTOS.FindAllPatientsDto,
   ) {
-    return this.listPatientsService.execute({ ...query, companyId });
+    return this.listPatientsService.execute({ ...query, companyId }, authzContext.principal.userId);
   }
 
   @Version('1')
@@ -189,9 +192,15 @@ export class PatientsController {
   async findPatientById(
     @Param('id') id: string,
     @Decorators.CurrentCompanyId() companyId: string,
+    @Decorators.CurrentAuthzContext()
+    authzContext: { principal: { userId: string } },
     @Query() query: PATIENT_DTOS.FindPatientByIdDto,
   ) {
-    return this.findPatientByIdService.execute(id, { ...query, companyId });
+    return this.findPatientByIdService.execute(
+      id,
+      { ...query, companyId },
+      authzContext.principal.userId,
+    );
   }
 
   @Version('1')

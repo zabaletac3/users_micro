@@ -2,8 +2,11 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Enums } from 'lideris-commoms-microservice';
 
 export class FindAllPatientsDto {
-  limit: number;
-  skip: number;
+  @ApiPropertyOptional({ example: 10, default: 10 })
+  limit?: number = 10;
+
+  @ApiPropertyOptional({ example: 0, default: 0 })
+  skip?: number = 0;
 
   @ApiProperty({ example: '6931b22e9078fac94c48c84c' })
   companyId: string;

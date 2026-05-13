@@ -3,7 +3,7 @@ import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { Logger } from '@nestjs/common';
-import { bootstrapConfigMicroservice } from 'lideris-commoms-microservice';
+import { bootstrapConfigMicroservice, KafkaTopics } from 'lideris-commoms-microservice';
 
 import { AppModule } from './app.module';
 import constants from './constants';
@@ -28,7 +28,7 @@ async function bootstrap(): Promise<void> {
   const kafkaBrokers = constants.KAFKA_BROKERS.split(',')
     .map((b) => b.trim())
     .filter(Boolean);
-  const hasKafka = kafkaBrokers.length > 0 && kafkaBrokers[0] !== 'localhost:9092';
+  const hasKafka = kafkaBrokers.length > 0;
 
   await bootstrapConfigMicroservice(app, {
     apiPrefix: 'user',
@@ -50,6 +50,7 @@ async function bootstrap(): Promise<void> {
         clientId: constants.KAFKA_CLIENT_ID,
         brokers: kafkaBrokers,
         groupId: constants.KAFKA_GROUP_ID,
+        topics: [KafkaTopics.PATIENT_STATUS_CHANGED],
       },
     }),
   });

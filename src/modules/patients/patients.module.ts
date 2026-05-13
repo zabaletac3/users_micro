@@ -2,8 +2,13 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Schemas } from 'lideris-commoms-microservice';
 
+import { RedisModule } from '../redis/redis.module';
+
 import { PatientsController } from './controllers/patients.controller';
 import { IdDocumentsModule } from './id-documents/id-documents.module';
+import { PatientStreamStore } from './providers/patient-stream.store';
+import { PatientStreamService } from './providers/patient-stream.service';
+import { PatientStreamGateway } from './gateways/patient-stream.gateway';
 import { CreateJudicialAuthorityNoticeService } from './providers/judicial-notice/create-judicial-authority-notice.service';
 import { CreatePatientSoatCaseService } from './providers/soat-case/create-patient-soat-case.service';
 import * as PATIENT_SERVICES from './providers/patients';
@@ -27,8 +32,12 @@ import { UpdatePatientSoatCaseService } from './providers/soat-case/update-patie
       { name: Schemas.PatientSoatCase.name, schema: Schemas.PatientSoatCaseSchema },
     ]),
     IdDocumentsModule,
+    RedisModule,
   ],
   providers: [
+    PatientStreamStore,
+    PatientStreamService,
+    PatientStreamGateway,
     PATIENT_SERVICES.ListPatientsService,
     PATIENT_SERVICES.CreatePatientService,
     PATIENT_SERVICES.FindPatientByIdService,
@@ -46,6 +55,6 @@ import { UpdatePatientSoatCaseService } from './providers/soat-case/update-patie
     FindJudicialAuthorityNoticeByIdService,
     UpdateJudicialAuthorityNoticeService,
   ],
-  controllers: [PatientsController],
+  controllers: [PatientStreamStore, PatientsController],
 })
 export class PatientsModule {}

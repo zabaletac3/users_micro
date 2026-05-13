@@ -3,9 +3,15 @@ import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model, Types } from 'mongoose';
 import { Schemas, Utils } from 'lideris-commoms-microservice';
 import { FindAllPatientsDto } from '@shared/dto/find-all-patient.dto';
-import { ListPatientsResponseDto, PatientMetricsDto } from '@shared/dto/list-patient-response.dto';
+import {
+  ListPatientsResponseDto,
+  PatientItemResponseDto,
+  PatientMetricsDto,
+} from '@shared/dto/list-patient-response.dto';
 import { Enums } from 'lideris-commoms-microservice';
 import { I18nKeys } from '@shared/constants/i18n-keys.constants';
+
+import { PatientStreamService } from '../patient-stream.service';
 
 @Injectable()
 export class ListPatientsService {
@@ -14,9 +20,10 @@ export class ListPatientsService {
   constructor(
     @InjectModel(Schemas.User.name)
     private readonly userModel: Model<Schemas.UserDocument>,
+    private readonly patientStreamService: PatientStreamService,
   ) {}
 
-  async execute(dto: FindAllPatientsDto): Promise<ListPatientsResponseDto> {
+  async execute(dto: FindAllPatientsDto, userId: string): Promise<ListPatientsResponseDto> {
     const {
       companyId,
       documentNumber,
@@ -191,9 +198,19 @@ export class ListPatientsService {
       this.calculateMetrics(companyObjectId),
     ]);
 
-    const paginated = Utils.paginateDataUtil(result[0].data, result[0].total[0]?.count ?? 0, dto);
+    const paginated = Utils.paginateDataUtil(
+      result[0].data,
+      result[0].total[0]?.count ?? 0,
+      dto as { limit: number; skip: number },
+    );
 
-    return { ...paginated, items: paginated.items as any, metrics };
+    // Enrich with patient attention status from Redis and register for real-time fan-out
+    const rawItems = paginated.items as PatientItemResponseDto[];
+    const enrichedItems = rawItems.length
+      ? await this.patientStreamService.enrichAndRegisterView({ items: rawItems }, userId)
+      : rawItems;
+
+    return { ...paginated, items: enrichedItems, metrics };
   }
 
   private async calculateMetrics(companyObjectId: Types.ObjectId): Promise<PatientMetricsDto> {

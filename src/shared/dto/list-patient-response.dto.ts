@@ -42,6 +42,12 @@ export class PatientItemResponseDto {
   @ApiProperty({ example: '69cc329665c348f676b149db' })
   _id: string;
 
+  @ApiPropertyOptional({
+    example: 'waiting',
+    description: 'Patient attention status from real-time stream',
+  })
+  status?: string;
+
   @ApiProperty({ example: 'Juan Carlos Pérez Gómez', required: false })
   fullName?: string;
 

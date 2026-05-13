@@ -50,6 +50,13 @@ import { PatientsModule } from './modules/patients/patients.module';
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(Middlewares.LoggerMiddleware).forRoutes('*');
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('LLEGO A DEVELOPMENRT');
+      consumer.apply(Middlewares.DevAuthContextMiddleware).forRoutes('*');
+    }
+
+    consumer
+      .apply(Middlewares.AuthorizerContextMiddleware, Middlewares.LoggerMiddleware)
+      .forRoutes('*');
   }
 }

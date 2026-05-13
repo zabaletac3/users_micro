@@ -6,13 +6,20 @@ import { FindPatientByIdDto } from '@shared/dto/find-patient-by-id.dto';
 import { FindPatientByIdResponseDto } from '@shared/dto/find-patient-by-id-response.dto';
 import { I18nKeys } from '@shared/constants/i18n-keys.constants';
 
+import { PatientStreamService } from '../patient-stream.service';
+
 @Injectable()
 export class FindPatientByIdService {
   constructor(
     @InjectModel(Schemas.User.name) private readonly userModel: Model<Schemas.UserDocument>,
+    private readonly patientStreamService: PatientStreamService,
   ) {}
 
-  async execute(id: string, dto: FindPatientByIdDto): Promise<FindPatientByIdResponseDto> {
+  async execute(
+    id: string,
+    dto: FindPatientByIdDto,
+    userId: string,
+  ): Promise<FindPatientByIdResponseDto> {
     const { companyId, patientHistorySearch, documentSearch } = dto;
 
     const patientHistoryLimit = Math.max(1, Math.floor(Number(dto.patientHistoryLimit) || 10));
@@ -192,6 +199,12 @@ export class FindPatientByIdService {
       throw new NotFoundException(I18nKeys.PATIENTS_NOT_FOUND);
     }
 
-    return result[0];
+    // Enrich with patient attention status from Redis and register for real-time fan-out
+    const enriched = await this.patientStreamService.enrichAndRegisterView(
+      { items: [result[0]] },
+      userId,
+    );
+
+    return enriched[0];
   }
 }

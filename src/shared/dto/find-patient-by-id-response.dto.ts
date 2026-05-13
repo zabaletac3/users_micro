@@ -53,6 +53,12 @@ export class FindPatientByIdResponseDto {
   @ApiProperty({ example: '69cd1b0203115e55f538d59c' })
   _id: string;
 
+  @ApiPropertyOptional({
+    example: 'waiting',
+    description: 'Patient attention status from real-time stream',
+  })
+  status?: string;
+
   @ApiProperty({ type: [String], example: ['67fd2a95f8f66b591dc9b20d'] })
   companies: string[];
 
