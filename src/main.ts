@@ -85,7 +85,7 @@ async function bootstrap(): Promise<void> {
   await app.listen(constants.PORT, '0.0.0.0');
   const logger = new Logger('Bootstrap');
 
-  logger.log(`HTTP + Socket.IO on port ${constants.PORT}`);
+  logger.log(`HTTP + Socket.IO on port -> ${constants.PORT}`);
   logger.log(`gRPC server on port ${constants.PORT_GRPC}`);
   logger.log(`Swagger docs at http://localhost:${constants.PORT}/user/docs`);
 }
