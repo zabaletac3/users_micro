@@ -56,13 +56,9 @@ async function bootstrap(): Promise<void> {
     enableSwagger: true,
     grpcPackageName: 'user',
     corsOptions: {
-      origin:
-        constants.NODE_ENV === 'production'
-          ? constants.CORS_ORIGINS.split(',')
-              .map((o) => o.trim())
-              .filter(Boolean)
-          : true,
+      origin: true,
       credentials: true,
+      methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     },
     ...(hasKafka && {
       kafkaConfig: {
