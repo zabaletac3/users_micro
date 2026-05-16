@@ -52,7 +52,9 @@ export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     if (process.env.NODE_ENV !== 'production') {
       console.log('LLEGO A DEVELOPMENRT');
-      consumer.apply(Middlewares.DevAuthContextMiddleware).forRoutes('*');
+      consumer
+        .apply(Middlewares.DevAuthContextMiddleware, Middlewares.LoggerMiddleware)
+        .forRoutes('*');
     }
 
     consumer
