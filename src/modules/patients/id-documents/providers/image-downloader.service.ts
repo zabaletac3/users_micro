@@ -72,10 +72,13 @@ export class ImageDownloaderService {
     return buffer.length >= 5 && ImageDownloaderService.PDF_MAGIC.equals(buffer.subarray(0, 5));
   }
 
-  /** Converts an image buffer to a base64 PNG string */
+  /** Converts an image buffer to a base64 PNG string, resized to max 2048px. */
   private async imageToBase64Png(url: string, buffer: Buffer): Promise<string> {
     try {
-      const pngBuffer = await sharp(buffer).png().toBuffer();
+      const pngBuffer = await sharp(buffer)
+        .resize({ width: 2048, height: 2048, fit: 'inside', withoutEnlargement: true })
+        .png()
+        .toBuffer();
 
       return pngBuffer.toString('base64');
     } catch (err) {
@@ -92,15 +95,26 @@ export class ImageDownloaderService {
     }
   }
 
-  /** Renders all pages of a PDF buffer to an array of base64 PNG strings */
+  /** Renders up to 2 pages of a PDF buffer using pdfjs-dist at reduced scale, then Sharp-resizes output. */
   private async pdfPagesToBase64Png(buffer: Buffer): Promise<string[]> {
+    const MAX_PAGES = 2;
+    const PDF_SCALE = 1.5;
+    const MAX_DIMENSION = 2048;
+
     try {
       const doc = await getDocument({ data: new Uint8Array(buffer) }).promise;
+      const totalPages = doc.numPages;
+
+      if (totalPages > MAX_PAGES) {
+        this.logger.warn(`PDF has ${totalPages} pages — only first ${MAX_PAGES} will be processed`);
+      }
+
+      const pagesToRender = Math.min(totalPages, MAX_PAGES);
       const pages: string[] = [];
 
-      for (let i = 1; i <= doc.numPages; i++) {
+      for (let i = 1; i <= pagesToRender; i++) {
         const page = await doc.getPage(i);
-        const viewport = page.getViewport({ scale: 3.0 });
+        const viewport = page.getViewport({ scale: PDF_SCALE });
 
         const canvas = createCanvas(viewport.width, viewport.height);
         const ctx = canvas.getContext('2d');
@@ -108,9 +122,20 @@ export class ImageDownloaderService {
         // @ts-expect-error — @napi-rs/canvas context is compatible at runtime but lacks drawFocusIfNeeded in types
         await page.render({ canvasContext: ctx, viewport }).promise;
 
-        const pngBuffer = canvas.toBuffer('image/png');
+        const rawBuffer = canvas.toBuffer('image/png');
 
-        pages.push(pngBuffer.toString('base64'));
+        // Sharp resize keeps PNG dimensions bounded regardless of PDF page size
+        const optimizedPng = await sharp(rawBuffer)
+          .resize({
+            width: MAX_DIMENSION,
+            height: MAX_DIMENSION,
+            fit: 'inside',
+            withoutEnlargement: true,
+          })
+          .png()
+          .toBuffer();
+
+        pages.push(optimizedPng.toString('base64'));
       }
 
       return pages;
