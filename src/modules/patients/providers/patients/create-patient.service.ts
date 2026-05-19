@@ -38,9 +38,13 @@ export class CreatePatientService {
       patient = await this.createIdentifiedPatient(dto, userId);
     }
 
-    return this.findPatientByIdService.execute(patient._id.toString(), {
-      companyId: dto.companyId,
-    });
+    return this.findPatientByIdService.execute(
+      patient._id.toString(),
+      {
+        companyId: dto.companyId,
+      },
+      userId,
+    );
   }
 
   // ── Identified patient ─────────────────────────────────────────────────────
@@ -272,6 +276,8 @@ export class CreatePatientService {
         ? this.documentModel.find({ _id: { $in: documents } }, { _id: 1 })
         : Promise.resolve([]),
     ]);
+
+    console.log('DOCUMENTS --------->>>>', documentsExists);
 
     if (!company) throw new NotFoundException(I18nKeys.COMPANY_REQUIRED_OR_INVALID);
     if (payerId && !payer) throw new NotFoundException(I18nKeys.PATIENTS_PAYER_NOT_FOUND);

@@ -155,6 +155,6 @@ export class ImportPatientService {
       session.endSession();
     }
 
-    return this.findPatientByIdService.execute(dto.targetPatientId, { companyId });
+    return this.findPatientByIdService.execute(dto.targetPatientId, { companyId }, userId);
   }
 }

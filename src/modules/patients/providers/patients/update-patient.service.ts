@@ -99,7 +99,7 @@ export class UpdatePatientService {
       );
     }
 
-    return this.findPatientByIdService.execute(id, { companyId });
+    return this.findPatientByIdService.execute(id, { companyId }, userId);
   }
 
   // ── Private: affiliation ────────────────────────────────────────────────────

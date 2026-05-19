@@ -116,6 +116,6 @@ export class IdentifyPatientService {
       session.endSession();
     }
 
-    return this.findPatientByIdService.execute(id, { companyId });
+    return this.findPatientByIdService.execute(id, { companyId }, userId);
   }
 }
