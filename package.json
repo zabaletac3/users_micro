@@ -51,7 +51,7 @@
     "ioredis": "^5.10.1",
     "joi": "^18.0.1",
     "kafkajs": "^2.2.4",
-    "lideris-commoms-microservice": "^1.4.4",
+    "lideris-commoms-microservice": "^1.4.7",
     "mongoose": "^8.18.0",
     "openai": "^6.37.0",
     "pdfjs-dist": "^5.7.284",
