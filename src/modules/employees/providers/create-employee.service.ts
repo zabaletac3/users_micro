@@ -18,6 +18,8 @@ export class CreateEmployeeService {
     private readonly userModel: Model<Schemas.UserDocument>,
     @InjectModel(Schemas.Document.name)
     private readonly documentModel: Model<Schemas.DocumentDocument>,
+    @InjectModel(Schemas.MedicalSpecialty.name)
+    private readonly medicalSpecialtyModel: Model<Schemas.MedicalSpecialtyDocument>,
     private readonly organizationGrpc: OrganizationGrpcClientService,
     private readonly employeesKafka: EmployeesKafkaService,
     private readonly resendProvider: ResendProvider,
@@ -71,6 +73,19 @@ export class CreateEmployeeService {
 
     if (existingEmail) {
       throw new ConflictException(`${I18nKeys.EMPLOYEE_EMAIL_EXISTS}: ${dto.email}`);
+    }
+
+    // Validate subSpecialtyIds if provided
+    if (dto.subSpecialtyIds?.length) {
+      const count = await this.medicalSpecialtyModel
+        .countDocuments({ _id: { $in: dto.subSpecialtyIds }, deletedAt: null })
+        .exec();
+
+      if (count !== dto.subSpecialtyIds.length) {
+        throw new BadRequestException(
+          `${I18nKeys.SUBSPECIALTY_NOT_FOUND}: ${dto.subSpecialtyIds.join(', ')}`,
+        );
+      }
     }
 
     const customPassword = `${dto.name.toLowerCase()[0]}.${dto.lastName.toLowerCase()[0]}.${dto.documentNumber}`;
