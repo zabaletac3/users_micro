@@ -10,7 +10,15 @@ import {
   UsePipes,
   Version,
 } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiExtraModels,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Pipes, Decorators, Enums } from 'lideris-commoms-microservice';
 import * as EmployeeDtos from '@shared/dto/employees';
 
@@ -22,6 +30,7 @@ const { TraceAction } = Enums;
 
 @ApiTags('employees')
 @Controller('employees')
+@ApiExtraModels(EmployeeDtos.EmployeeListResponseDto, EmployeeDtos.EmployeeResponseDto)
 export class EmployeesController {
   constructor(
     private readonly findAllService: EmployeeServices.FindAllEmployeesService,
@@ -35,13 +44,62 @@ export class EmployeesController {
   @Version('1')
   @ApiOperation({
     summary: 'List employees',
-    description: 'Paginated list with cursor/offset pagination.',
+    description: `Paginated list of employees with hybrid cursor/offset pagination.
+
+**Cursor pagination (recommended for large datasets):**
+Use \`?cursor=<last_id>&pageSize=20\` — faster, no \`skip\`, consistent under inserts/deletes.
+The response \`pagination.nextCursor\` is the ID to pass as \`?cursor=\` for the next page.
+When \`nextCursor\` is \`null\`, there are no more pages.
+Default: \`pageSize=20\`, mode: \`cursor\`.
+
+**Offset pagination:**
+Use \`?page=1&pageSize=20\` — standard page/size. The response includes \`total\` and \`totalPages\`.
+
+**Position type filter:**
+Use \`?positionTypes=doctor,collaborator\` to filter employees by position type. Resolved via gRPC to micro-organization.
+
+**Free-text search:**
+Use \`?q=term\` to search across name, email, documentNumber, serial, and phone.`,
   })
-  @ApiQuery({ name: 'q', required: false })
-  @ApiQuery({ name: 'page', required: false })
-  @ApiQuery({ name: 'pageSize', required: false })
-  @ApiQuery({ name: 'cursor', required: false })
-  @ApiResponse({ status: 200, description: 'Paginated list' })
+  @ApiQuery({
+    name: 'q',
+    required: false,
+    description: 'Free-text search (name, email, documentNumber, serial, phone)',
+  })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    description: 'Page number for offset pagination (1-based)',
+  })
+  @ApiQuery({
+    name: 'pageSize',
+    required: false,
+    description: 'Items per page (1-100, default 20)',
+  })
+  @ApiQuery({
+    name: 'cursor',
+    required: false,
+    description:
+      'Cursor _id for cursor-based pagination. Pass the last item _id from previous page.',
+  })
+  @ApiQuery({
+    name: 'positionTypes',
+    required: false,
+    description:
+      'Comma-separated position types (e.g. doctor,collaborator). Resolves position IDs via gRPC.',
+  })
+  @ApiQuery({ name: 'isActive', required: false, description: 'true/false' })
+  @ApiQuery({ name: 'gender', required: false, description: 'MALE/FEMALE/OTHER' })
+  @ApiQuery({
+    name: 'maritalStatus',
+    required: false,
+    description: 'SINGLE/MARRIED/DIVORCED/WIDOWED/SEPARATED/COUPLE',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Paginated employee list',
+    type: EmployeeDtos.EmployeeListResponseDto,
+  })
   @UsePipes(new Pipes.JoiQueryValidationPipe(Validations.listEmployeesSchema))
   async findAll(
     @Query() query: Record<string, unknown>,
@@ -54,12 +112,13 @@ export class EmployeesController {
   @Version('1')
   @ApiOperation({
     summary: 'Create employee',
-    description: 'Creates a new employee. Company from auth context.',
+    description:
+      'Creates a new employee. Company from auth context. Validates related entities (position, departments, areas) via gRPC to micro-organization.',
   })
   @ApiBody({ type: EmployeeDtos.CreateEmployeeDto })
-  @ApiResponse({ status: 201, description: 'Created' })
-  @ApiResponse({ status: 400, description: 'Invalid data or entity not found' })
-  @ApiResponse({ status: 409, description: 'Email or document number exists' })
+  @ApiResponse({ status: 201, description: 'Employee created' })
+  @ApiResponse({ status: 400, description: 'Related entity not found or not in position' })
+  @ApiResponse({ status: 409, description: 'Email or document number already exists' })
   @Decorators.TraceEvent({
     action: TraceAction.CREATE,
     eventCode: EMPLOYEE_TRACE_EVENTS.CREATED as Enums.TraceEventCode,
@@ -77,10 +136,23 @@ export class EmployeesController {
 
   @Get(':id')
   @Version('1')
-  @ApiOperation({ summary: 'Get employee by ID', description: 'Retrieves an employee by ID.' })
-  @ApiParam({ name: 'id', description: 'Employee ID', type: String })
-  @ApiResponse({ status: 200, description: 'Found' })
-  @ApiResponse({ status: 404, description: 'Not found' })
+  @ApiOperation({
+    summary: 'Get employee by ID',
+    description:
+      'Retrieves an employee by ID with populated position, department, area, and sub-specialty names.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Employee ID',
+    type: String,
+    example: '6a076e8dbd4f50a897804854',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Employee found',
+    type: EmployeeDtos.EmployeeResponseDto,
+  })
+  @ApiResponse({ status: 404, description: 'Employee not found' })
   async findById(@Param('id') id: string, @Decorators.CurrentCompanyId() companyId: string) {
     return this.findByIdService.findById(id, companyId);
   }
@@ -89,12 +161,13 @@ export class EmployeesController {
   @Version('1')
   @ApiOperation({
     summary: 'Update employee',
-    description: 'Updates fields and complex operations.',
+    description:
+      'Updates fields and complex operations (documents, profile images, position, departments, areas).',
   })
   @ApiParam({ name: 'id', description: 'Employee ID', type: String })
   @ApiBody({ type: EmployeeDtos.UpdateEmployeeDto })
   @ApiResponse({ status: 200, description: 'Updated' })
-  @ApiResponse({ status: 404, description: 'Not found' })
+  @ApiResponse({ status: 404, description: 'Employee or entity not found' })
   @Decorators.TraceEvent({
     action: TraceAction.UPDATE,
     eventCode: EMPLOYEE_TRACE_EVENTS.UPDATED as Enums.TraceEventCode,
@@ -115,7 +188,7 @@ export class EmployeesController {
   @Version('1')
   @ApiOperation({
     summary: 'Activate/deactivate employee',
-    description: 'Changes employee status.',
+    description: 'Changes employee status with audit trail.',
   })
   @ApiParam({ name: 'id', description: 'Employee ID', type: String })
   @ApiBody({ type: EmployeeDtos.HandleEmployeeStatusDto })
