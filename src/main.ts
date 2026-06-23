@@ -65,7 +65,7 @@ async function bootstrap(): Promise<void> {
         clientId: constants.KAFKA_CLIENT_ID,
         brokers: kafkaBrokers,
         groupId: constants.KAFKA_GROUP_ID,
-        topics: [KafkaTopics.PATIENT_STATUS_CHANGED],
+        topics: [KafkaTopics.PATIENT_STATUS_CHANGED, 'employee.created', 'user.position.assigned'],
       },
     }),
   });

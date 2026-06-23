@@ -7,6 +7,8 @@ import * as Joi from 'joi';
 
 import { UsersModule } from './modules/users/users.module';
 import { PatientsModule } from './modules/patients/patients.module';
+import { EmployeesModule } from './modules/employees/employees.module';
+import { DevAuthContextMiddleware } from './shared/middlewares/dev-auth-context.middleware';
 
 @Module({
   imports: [
@@ -17,7 +19,6 @@ import { PatientsModule } from './modules/patients/patients.module';
         PORT_GRPC: Joi.number().default(50052),
         NODE_ENV: Joi.string().valid('development', 'production', 'test').default('development'),
         APP_NAME: Joi.string().default('micro-users'),
-        // Cors
         CORS_ORIGINS: Joi.string().allow('').default(''),
         MONGO_STRING_CONNECTION: Joi.string().required(),
         MONGO_DB_NAME: Joi.string().required(),
@@ -28,6 +29,7 @@ import { PatientsModule } from './modules/patients/patients.module';
         KAFKA_CLIENT_ID: Joi.string().default('micro-users'),
         KAFKA_GROUP_ID: Joi.string().default('micro-users-group'),
         GRPC_URL_USER: Joi.string().default('localhost:50052'),
+        GRPC_URL_ORGANIZATION: Joi.string().default('localhost:50052'),
       }),
     }),
     MongooseModule.forRootAsync({
@@ -39,9 +41,11 @@ import { PatientsModule } from './modules/patients/patients.module';
     }),
     UsersModule,
     PatientsModule,
+    EmployeesModule,
   ],
   controllers: [HealthcheckController],
   providers: [
+    DevAuthContextMiddleware,
     {
       provide: APP_INTERCEPTOR,
       useClass: Interceptors.StandardResponseInterceptor,
@@ -50,15 +54,15 @@ import { PatientsModule } from './modules/patients/patients.module';
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('LLEGO A DEVELOPMENRT');
-      consumer
-        .apply(Middlewares.DevAuthContextMiddleware, Middlewares.LoggerMiddleware)
-        .forRoutes('*');
-    }
+    const middlewares =
+      process.env.NODE_ENV !== 'production'
+        ? [
+            DevAuthContextMiddleware,
+            Middlewares.AuthorizerContextMiddleware,
+            Middlewares.LoggerMiddleware,
+          ]
+        : [Middlewares.AuthorizerContextMiddleware, Middlewares.LoggerMiddleware];
 
-    consumer
-      .apply(Middlewares.AuthorizerContextMiddleware, Middlewares.LoggerMiddleware)
-      .forRoutes('*');
+    consumer.apply(...middlewares).forRoutes('*');
   }
 }
