@@ -30,6 +30,7 @@ const { TraceAction } = Enums;
 
 @ApiTags('employees')
 @Controller('employees')
+@Decorators.Public()
 @ApiExtraModels(EmployeeDtos.EmployeeListResponseDto, EmployeeDtos.EmployeeResponseDto)
 export class EmployeesController {
   constructor(
