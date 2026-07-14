@@ -3,7 +3,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Schemas } from 'lideris-commoms-microservice';
 
-import { CreateCommunicationDto } from './create-communication.dto';
+import {
+  CreateCommunicationDto,
+  CreateClinicalRecordCommunicationDto,
+  CreateRedirectionCommunicationDto,
+  CreatePatientInformationCommunicationDto,
+  CreatePqrsCommunicationDto,
+} from '@shared/dto/patient-communication.dto';
 import { CommunicationStatusEnum, RequirementTypeEnum } from './communication.enums';
 
 @Injectable()
@@ -66,35 +72,43 @@ export class CreateCommunicationService {
     };
 
     switch (dto.requirementType) {
-      case RequirementTypeEnum.CLINICAL_RECORD:
+      case RequirementTypeEnum.CLINICAL_RECORD: {
+        const typed = dto as CreateClinicalRecordCommunicationDto;
         return {
           ...base,
-          communicationMedium: dto.communicationMedium,
-          clinicalRecordIds: dto.clinicalRecordIds.map((id) => new Types.ObjectId(id)),
+          communicationMedium: typed.communicationMedium,
+          clinicalRecordIds: typed.clinicalRecordIds.map((id) => new Types.ObjectId(id)),
         };
+      }
 
-      case RequirementTypeEnum.REDIRECTION:
+      case RequirementTypeEnum.REDIRECTION: {
+        const typed = dto as CreateRedirectionCommunicationDto;
         return {
           ...base,
-          destinationArea: dto.destinationArea,
-          redirectionReason: dto.redirectionReason,
+          destinationArea: typed.destinationArea,
+          redirectionReason: typed.redirectionReason,
         };
+      }
 
-      case RequirementTypeEnum.PATIENT_INFORMATION:
+      case RequirementTypeEnum.PATIENT_INFORMATION: {
+        const typed = dto as CreatePatientInformationCommunicationDto;
         return {
           ...base,
-          requestReason: dto.requestReason,
-          description: dto.description,
+          requestReason: typed.requestReason,
+          description: typed.description,
         };
+      }
 
-      case RequirementTypeEnum.PQRS:
+      case RequirementTypeEnum.PQRS: {
+        const typed = dto as CreatePqrsCommunicationDto;
         return {
           ...base,
-          pqrsType: dto.pqrsType,
-          relatedArea: dto.relatedArea,
-          subject: dto.subject,
-          caseDescription: dto.caseDescription,
+          pqrsType: typed.pqrsType,
+          relatedArea: typed.relatedArea,
+          subject: typed.subject,
+          caseDescription: typed.caseDescription,
         };
+      }
     }
   }
 }

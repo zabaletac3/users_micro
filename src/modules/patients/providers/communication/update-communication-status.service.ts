@@ -3,12 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Schemas } from 'lideris-commoms-microservice';
 
-import { CommunicationStatusEnum } from './communication.enums';
-
-export interface UpdateCommunicationStatusDto {
-  status: CommunicationStatusEnum;
-  observations?: string;
-}
+import { UpdateCommunicationStatusDto } from '@shared/dto/patient-communication.dto';
 
 @Injectable()
 export class UpdateCommunicationStatusService {
